@@ -18,37 +18,37 @@ public class TopNTest {
     @Test
     public void testTopN() {
 
-        SparkConf conf = new SparkConf();
-
-        conf.setAppName("WordCounter")//
-                .setMaster("local");
-
-        String fileName = "/Users/andrew_asa/Documents/lab/spark/src/main/resources/count.txt";
-
-        JavaSparkContext sc = new JavaSparkContext(conf);
-        JavaRDD<String> lines = sc.textFile(fileName, 1);
-        JavaRDD<Row> rows = lines
-                .map((Function<String, Row>) line -> {
-
-                    String name = null;
-                    String password = null;
-                    if (StringUtils.isNotEmpty(line)) {
-                        String[] words = line.split("\\s");
-                        if (words.length > 1) {
-                            name = words[0];
-                            password = words[1];
-                        }
-                    }
-                    Row ret = new Row(2, new String[]{
-
-                            name, password
-                    });
-                    return ret;
-                });
-        JavaPairRDD<String, Iterable<Row>> groupRdd = rows.groupBy((Function<Row, String>) v1 -> (String) v1.getOrigRow()[0]);
-        JavaPairRDD<String, Iterable<Row>> groupRddCache = groupRdd.cache();
-        JavaPairRDD<String, Iterable<Row>> sortRdd = groupRddCache.sortByKey();
-        sortRdd.collect();
+        //SparkConf conf = new SparkConf();
+        //
+        //conf.setAppName("WordCounter")//
+        //        .setMaster("local");
+        //
+        //String fileName = "/Users/andrew_asa/Documents/lab/spark/src/main/resources/count.txt";
+        //
+        //JavaSparkContext sc = new JavaSparkContext(conf);
+        //JavaRDD<String> lines = sc.textFile(fileName, 1);
+        //JavaRDD<Row> rows = lines
+        //        .map((Function<String, Row>) line -> {
+        //
+        //            String name = null;
+        //            String password = null;
+        //            if (StringUtils.isNotEmpty(line)) {
+        //                String[] words = line.split("\\s");
+        //                if (words.length > 1) {
+        //                    name = words[0];
+        //                    password = words[1];
+        //                }
+        //            }
+        //            Row ret = new Row(2, new String[]{
+        //
+        //                    name, password
+        //            });
+        //            return ret;
+        //        });
+        //JavaPairRDD<String, Iterable<Row>> groupRdd = rows.groupBy((Function<Row, String>) v1 -> (String) v1.getOrigRow()[0]);
+        //JavaPairRDD<String, Iterable<Row>> groupRddCache = groupRdd.cache();
+        //JavaPairRDD<String, Iterable<Row>> sortRdd = groupRddCache.sortByKey();
+        //sortRdd.collect();
          //groups = sortRdd.cache();
 
         //groups.forEach(tuple2 -> {
@@ -61,6 +61,6 @@ public class TopNTest {
         //Map<String, Long> counts =  sorts.countByKey();
         //Set<String> keys = counts.keySet();
         //keys.forEach(key->System.out.println("name:"+key+" password:"+counts.get(key)));
-        sc.close();
+        //sc.close();
     }
 }

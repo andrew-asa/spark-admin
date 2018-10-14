@@ -1,4 +1,4 @@
-package com.asa.lab.structure.resultset;
+package com.asa.lab.structure.datasource;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface DataSet {
 
-    Type[] getTypes();
+    RowSet[] getDataArrary();
 
-    Row[] getDataArrary();
-
-    List<Row> getDataList();
+    List<RowSet> getDataList();
 
     int size();
+
+    Object getObject(int row, int column);
 }

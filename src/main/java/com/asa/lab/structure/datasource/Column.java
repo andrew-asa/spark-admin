@@ -1,4 +1,4 @@
-package com.asa.lab.structure.resultset;
+package com.asa.lab.structure.datasource;
 
 /**
  * Created by andrew_asa on 2018/8/3.

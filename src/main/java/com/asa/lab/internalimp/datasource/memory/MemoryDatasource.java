@@ -1,27 +1,64 @@
 package com.asa.lab.internalimp.datasource.memory;
 
+import com.asa.lab.structure.datasource.DataSchema;
 import com.asa.lab.structure.datasource.DataSource;
-import com.asa.lab.structure.resultset.DataSet;
+import com.asa.lab.structure.datasource.DataSet;
 
 /**
  * Created by andrew_asa on 2018/8/3.
  */
 public class MemoryDatasource implements DataSource {
 
-    private MemoryDataSet source;
+    public static final String URLSCHMA = "memory";
+
+    private DataSet dataSet;
+
+    private DataSchema schema;
+
+    private String name;
 
     public MemoryDatasource() {
 
     }
 
-    public void setSource(MemoryDataSet source) {
+    @Override
+    public String getName() {
 
-        this.source = source;
+        return name;
     }
 
     @Override
-    public DataSet getSource() {
+    public void setName(String name) {
 
-        return source;
+        this.name = name;
+    }
+
+    @Override
+    public DataSet getDataSet() {
+
+        return dataSet;
+    }
+
+    @Override
+    public DataSchema getSchema() {
+
+        return schema;
+    }
+
+    public void setDataSet(DataSet dataSet) {
+
+        this.dataSet = dataSet;
+    }
+
+    @Override
+    public void setSchema(DataSchema schema) {
+
+        this.schema = schema;
+    }
+
+    @Override
+    public String getURIScheme() {
+
+        return URLSCHMA;
     }
 }

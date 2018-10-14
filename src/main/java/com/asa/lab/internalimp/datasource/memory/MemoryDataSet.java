@@ -1,8 +1,7 @@
 package com.asa.lab.internalimp.datasource.memory;
 
-import com.asa.lab.structure.resultset.DataSet;
-import com.asa.lab.structure.resultset.Row;
-import com.asa.lab.structure.resultset.Type;
+import com.asa.lab.structure.datasource.DataSet;
+import com.asa.lab.structure.datasource.RowSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,33 +11,21 @@ import java.util.List;
  */
 public class MemoryDataSet implements DataSet {
 
-    private Type[] types;
 
-    private Row[] data;
+    private RowSet[] data;
 
     public MemoryDataSet() {
 
     }
 
     @Override
-    public Type[] getTypes() {
-
-        return types;
-    }
-
-    public void setTypes(Type[] types) {
-
-        this.types = types;
-    }
-
-    @Override
-    public Row[] getDataArrary() {
+    public RowSet[] getDataArrary() {
 
         return data;
     }
 
     @Override
-    public List<Row> getDataList() {
+    public List<RowSet> getDataList() {
 
         return Arrays.asList(data);
     }
@@ -49,8 +36,22 @@ public class MemoryDataSet implements DataSet {
         return data != null ? data.length : 0;
     }
 
-    public void setData(Row[] data) {
+    @Override
+    public Object getObject(int row, int column) {
+
+        return data[row].get(column);
+    }
+
+    public void setData(RowSet[] data) {
 
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+
+        return "MemoryDataSet{" +
+                "data=" + Arrays.toString(data) +
+                '}';
     }
 }
