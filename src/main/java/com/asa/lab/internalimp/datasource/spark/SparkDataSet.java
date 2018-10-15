@@ -29,7 +29,7 @@ public class SparkDataSet implements DataSet {
     }
 
     @Override
-    public RowSet[] getDataArrary() {
+    public RowSet[] getDataArray() {
 
         return new RowSet[0];
     }

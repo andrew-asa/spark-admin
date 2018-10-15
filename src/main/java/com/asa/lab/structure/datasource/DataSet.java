@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface DataSet {
 
-    RowSet[] getDataArrary();
+    RowSet[] getDataArray();
 
     List<RowSet> getDataList();
 

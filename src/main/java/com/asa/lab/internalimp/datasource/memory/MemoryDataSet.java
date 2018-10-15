@@ -19,7 +19,7 @@ public class MemoryDataSet implements DataSet {
     }
 
     @Override
-    public RowSet[] getDataArrary() {
+    public RowSet[] getDataArray() {
 
         return data;
     }

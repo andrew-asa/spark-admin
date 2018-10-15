@@ -7,13 +7,28 @@ import com.asa.lab.structure.operator.ETLOperator;
  * @date 2018/10/15.
  * 新增列
  */
-public class AddNewColumnOperator implements ETLOperator{
+public abstract class AddNewColumnOperator implements ETLOperator, AddNewColumnSubName {
 
     public static final String NAME = "addNewColumn";
+
+    /**
+     * 列名
+     */
+    private String columnName;
 
     @Override
     public String getName() {
 
         return NAME;
+    }
+
+    public String getColumnName() {
+
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+
+        this.columnName = columnName;
     }
 }

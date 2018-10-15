@@ -4,6 +4,7 @@ package com.asa.lab.internalimp.etl;
 import com.asa.lab.internalimp.datasource.DataBaseContent;
 import com.asa.lab.internalimp.datasource.DataSourceHelper;
 import com.asa.lab.internalimp.datasource.memory.MemoryDatasource;
+import com.asa.lab.internalimp.operator.add.AddNewColumnOperatorHelper;
 import com.asa.lab.internalimp.operator.filter.column.ColumnInFilterOperator;
 import com.asa.lab.internalimp.operator.filter.FilterOperatorHelper;
 import com.asa.lab.internalimp.operator.select.SelectOperator;
@@ -43,7 +44,41 @@ public class DefaultETLBuilderTest {
     }
 
     @Test
+    public void testAddExpressionColumn() {
+
+        MemoryDatasource dataSource = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.String, Type.Double},
+                new String[]{"sheng", "shi", "gdp"},
+                new Object[][]{
+                        {"江苏", "南京", 17d},
+                        {"浙江", "宁波", 25d},
+                        {"江苏", "南通", 34d},
+                });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
+
+
+        MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.String, Type.Double, Type.Double},
+                new String[]{"sheng", "shi", "gdp", "newColumn"},
+                new Object[][]{
+                        {"江苏", "南京", 17d, 17d * 2 + 3},
+                        {"浙江", "宁波", 25d, 25d * 2 + 3},
+                        {"江苏", "南通", 34d, 34d * 2 + 3},
+                });
+
+        DefaultETLBuilder builder = new DefaultETLBuilder();
+        List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
+        ETLOperators.add(AddNewColumnOperatorHelper.buildAddExpressionColumn("newColumn", "gdp*2+3"));
+        ETLJobBuilderContent content = new ETLJobBuilderContent();
+        DataSource result = builder.build(content, ETLOperators);
+        DataSourceHelper.show(result);
+        Assert.assertTrue(DataSourceHelper.equalDataSet(result, expect));
+    }
+
+    @Test
     public void testSort() {
+
         MemoryDatasource dataSource = DataSourceHelper.mockMemoryDatasource(
                 new Type[]{Type.String, Type.String},
                 new String[]{"sheng", "shi"},
