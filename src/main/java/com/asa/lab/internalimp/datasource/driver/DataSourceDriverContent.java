@@ -36,10 +36,9 @@ public class DataSourceDriverContent {
     private void init() {
 
         dataSourceDriverMap = new HashMap<String, DataSourceDriver>();
-        registerDefaultDriver();
     }
 
-    private void registerDefaultDriver() {
+    public void registerDefaultDriver() {
 
         registerDriver(MemoryDatasource.URLSCHMA, new MemoryDataSourceDriver());
     }

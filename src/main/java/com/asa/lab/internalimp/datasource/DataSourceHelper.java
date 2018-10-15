@@ -25,22 +25,29 @@ public class DataSourceHelper {
     /**
      * 模拟一个data source
      *
+     * @param tableName
      * @param types
      * @param data
      * @return
      */
-    public static MemoryDatasource mockMemoryDatasource(Type[] types, String[] names, Object[][] data) {
+    public static MemoryDatasource mockMemoryDatasource(String tableName, Type[] types, String[] names, Object[][] data) {
 
         MemoryDatasourceBuilder builder = new MemoryDatasourceBuilder();
         return builder
+                .setTableName(tableName)
                 .setData(data)
                 .setColumn(types, names)
                 .build();
     }
 
+    public static MemoryDatasource mockMemoryDatasource(Type[] types, String[] names, Object[][] data) {
+
+        return mockMemoryDatasource(createDataSourceName(), types, names, data);
+    }
+
     public static MemoryDatasource emptyMemoryDataSource() {
 
-        return mockMemoryDatasource(new Type[0], new String[0], new Object[0][0]);
+        return mockMemoryDatasource(createDataSourceName(), new Type[0], new String[0], new Object[0][0]);
     }
 
     public static void makeSureDataSourceHaveName(DataSource dataSource) {

@@ -13,6 +13,8 @@ public class BaseColumn implements Column {
 
     private String name;
 
+    private String tableName;
+
     public BaseColumn(Type type, String name) {
 
         this.type = type;

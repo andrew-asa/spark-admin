@@ -1,5 +1,7 @@
 package com.asa.lab.structure.service.spark;
 
+import com.asa.lab.internalimp.datasource.driver.DataSourceDriverContent;
+import com.asa.lab.internalimp.operator.filter.FilterDriverContent;
 import org.apache.spark.SparkContext;
 import org.apache.spark.sql.SparkSession;
 
@@ -24,6 +26,12 @@ public class SparkContentManager {
     private void init() {
 
         configure = new SparkConfigure();
+    }
+
+    public void setDefault() {
+
+        DataSourceDriverContent.getInstance().registerDefaultDriver();
+        FilterDriverContent.getInstance().setDefaultDriver();
     }
 
     public void addConfigure(String key, String value) {

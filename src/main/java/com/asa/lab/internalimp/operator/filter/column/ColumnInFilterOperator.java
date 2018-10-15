@@ -1,5 +1,6 @@
-package com.asa.lab.internalimp.operator.filter;
+package com.asa.lab.internalimp.operator.filter.column;
 
+import com.asa.lab.internalimp.operator.filter.FilterOperator;
 import com.asa.lab.utils.AssistUtils;
 
 import java.util.List;
@@ -8,14 +9,17 @@ import java.util.List;
  * @author andrew_asa
  * @date 2018/10/9.
  * 列过滤
+ * in(xx,xx)
  */
-public class ColumnFilterETLOperator extends FilterETLOperator {
+public class ColumnInFilterOperator extends FilterOperator {
 
     private String columnName;
 
     private List<Object> value;
 
-    public ColumnFilterETLOperator(String columnName, List<Object> value) {
+    public static final String CONDITION_NAME = "COLUMN_IN";
+
+    public ColumnInFilterOperator(String columnName, List<Object> value) {
 
         this.columnName = columnName;
         this.value = value;
@@ -47,10 +51,10 @@ public class ColumnFilterETLOperator extends FilterETLOperator {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ColumnFilterETLOperator)) {
+        if (!(o instanceof ColumnInFilterOperator)) {
             return false;
         }
-        ColumnFilterETLOperator that = (ColumnFilterETLOperator) o;
+        ColumnInFilterOperator that = (ColumnInFilterOperator) o;
         return AssistUtils.equals(columnName, that.columnName) &&
                 AssistUtils.equals(value, that.value);
     }
@@ -59,5 +63,11 @@ public class ColumnFilterETLOperator extends FilterETLOperator {
     public int hashCode() {
 
         return AssistUtils.hashCode(columnName, value);
+    }
+
+    @Override
+    public String getConditionName() {
+
+        return CONDITION_NAME;
     }
 }

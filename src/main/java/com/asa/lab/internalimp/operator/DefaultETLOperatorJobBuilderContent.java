@@ -1,7 +1,7 @@
 package com.asa.lab.internalimp.operator;
 
 import com.asa.lab.internalimp.datasource.driver.DataSourceDriverContent;
-import com.asa.lab.internalimp.operator.filter.FilterETLOperator;
+import com.asa.lab.internalimp.operator.filter.FilterOperator;
 import com.asa.lab.internalimp.operator.filter.FilterJobBuilder;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.operator.ETLOperatorJobBuilder;
@@ -32,7 +32,7 @@ public class DefaultETLOperatorJobBuilderContent {
 
     private void setDefaultOperatorJobBuilder() {
 
-        jobBuilderMap.put(FilterETLOperator.NAME, new FilterJobBuilder());
+        jobBuilderMap.put(FilterOperator.NAME, new FilterJobBuilder());
     }
 
     public static DefaultETLOperatorJobBuilderContent getInstance() {

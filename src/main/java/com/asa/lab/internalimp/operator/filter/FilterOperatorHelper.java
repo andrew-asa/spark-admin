@@ -1,5 +1,13 @@
 package com.asa.lab.internalimp.operator.filter;
 
+import com.asa.lab.internalimp.datasource.BaseColumn;
+import com.asa.lab.internalimp.operator.filter.column.ColumnInFilterOperator;
+import com.asa.lab.internalimp.operator.filter.column.ColumnNotInFilterOperator;
+import com.asa.lab.internalimp.operator.select.SelectItem;
+import com.asa.lab.internalimp.operator.select.SelectOperator;
+import com.asa.lab.structure.datasource.Column;
+import com.asa.lab.structure.datasource.Type;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +17,26 @@ import java.util.List;
  */
 public class FilterOperatorHelper {
 
-    public static ColumnFilterETLOperator buildColumnFilter(String columnName, Object... values) {
+
+
+
+    public static ColumnInFilterOperator buildColumnInFilter(String columnName, Object... values) {
 
         List<Object> fv = new ArrayList<>();
         for (Object o : values) {
             fv.add(o);
         }
-        ColumnFilterETLOperator filterOperator = new ColumnFilterETLOperator(columnName, fv);
+        ColumnInFilterOperator filterOperator = new ColumnInFilterOperator(columnName, fv);
+        return filterOperator;
+    }
+
+    public static ColumnInFilterOperator buildColumnNotInFilter(String columnName, Object... values) {
+
+        List<Object> fv = new ArrayList<>();
+        for (Object o : values) {
+            fv.add(o);
+        }
+        ColumnNotInFilterOperator filterOperator = new ColumnNotInFilterOperator(columnName, fv);
         return filterOperator;
     }
 }

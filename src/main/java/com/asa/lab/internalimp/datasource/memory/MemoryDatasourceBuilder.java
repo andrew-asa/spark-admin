@@ -16,6 +16,8 @@ public class MemoryDatasourceBuilder {
 
     private Object[][] data;
 
+    private String tableName;
+
     public MemoryDatasourceBuilder setColumn(Type[] types, String[] names) {
 
         this.types = types;
@@ -26,6 +28,12 @@ public class MemoryDatasourceBuilder {
     public MemoryDatasourceBuilder setData(Object[][] data) {
 
         this.data = data;
+        return this;
+    }
+
+    public MemoryDatasourceBuilder setTableName(String tableName) {
+
+        this.tableName = tableName;
         return this;
     }
 
