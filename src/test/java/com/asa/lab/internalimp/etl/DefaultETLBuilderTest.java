@@ -1,6 +1,7 @@
 package com.asa.lab.internalimp.etl;
 
 
+import com.asa.lab.internalimp.datasource.DataBaseContent;
 import com.asa.lab.internalimp.datasource.DataSourceHelper;
 import com.asa.lab.internalimp.datasource.memory.MemoryDatasource;
 import com.asa.lab.internalimp.operator.filter.column.ColumnInFilterOperator;
@@ -12,6 +13,7 @@ import com.asa.lab.structure.datasource.Type;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.service.etl.ETLJobBuilderContent;
 import com.asa.lab.structure.service.spark.SparkContentManager;
+import org.apache.spark.sql.SparkSession;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -52,6 +54,7 @@ public class DefaultETLBuilderTest {
                         {"浙江", "宁波"},
                         {"广东", "广州"},
                 });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
 
         MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
                 new Type[]{Type.String},
@@ -67,9 +70,10 @@ public class DefaultETLBuilderTest {
         SelectOperator columnFilterOperator = SelectOperatorHelper.buildSelectOperator(
                 new String[]{tableName},
                 new String[]{"sheng"});
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
         ETLOperators.add(columnFilterOperator);
         ETLJobBuilderContent content = new ETLJobBuilderContent();
-        DataSource result = builder.build(dataSource, content, ETLOperators);
+        DataSource result = builder.build(content, ETLOperators);
         DataSourceHelper.show(result);
         Assert.assertTrue(DataSourceHelper.equalDataSet(result, expect));
     }
@@ -85,6 +89,7 @@ public class DefaultETLBuilderTest {
                         {"浙江", "宁波"},
                         {"广东", "广州"},
                 });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
 
         MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
                 new Type[]{Type.String, Type.String},
@@ -94,12 +99,14 @@ public class DefaultETLBuilderTest {
                         {"浙江", "宁波"},
                 });
 
+
         DefaultETLBuilder builder = new DefaultETLBuilder();
         List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
         ColumnInFilterOperator columnFilterOperator = FilterOperatorHelper.buildColumnInFilter("sheng", "江苏", "浙江");
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
         ETLOperators.add(columnFilterOperator);
         ETLJobBuilderContent content = new ETLJobBuilderContent();
-        DataSource result = builder.build(dataSource, content, ETLOperators);
+        DataSource result = builder.build(content, ETLOperators);
         DataSourceHelper.show(result);
         Assert.assertTrue(DataSourceHelper.equalDataSet(result, expect));
     }
@@ -115,6 +122,8 @@ public class DefaultETLBuilderTest {
                         {"浙江", "宁波"},
                         {"广东", "广州"},
                 });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
+
 
         MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
                 new Type[]{Type.String, Type.String},
@@ -126,9 +135,10 @@ public class DefaultETLBuilderTest {
         DefaultETLBuilder builder = new DefaultETLBuilder();
         List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
         ColumnInFilterOperator columnFilterOperator = FilterOperatorHelper.buildColumnNotInFilter("sheng", "江苏", "浙江");
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
         ETLOperators.add(columnFilterOperator);
         ETLJobBuilderContent content = new ETLJobBuilderContent();
-        DataSource result = builder.build(dataSource, content, ETLOperators);
+        DataSource result = builder.build(content, ETLOperators);
         DataSourceHelper.show(result);
         Assert.assertTrue(DataSourceHelper.equalDataSet(result, expect));
     }

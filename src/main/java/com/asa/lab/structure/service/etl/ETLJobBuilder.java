@@ -16,10 +16,9 @@ public interface ETLJobBuilder {
      * 一个系列operator
      * 输出一个data source
      *
-     * @param source
      * @param content
      * @param ETLOperators
      * @return
      */
-    DataSource build(DataSource source, ETLJobBuilderContent content, List<ETLOperator> ETLOperators);
+    DataSource build(ETLJobBuilderContent content, List<ETLOperator> ETLOperators);
 }

@@ -9,14 +9,26 @@ import com.asa.utils.AssistUtils;
  */
 public class SelectItem {
 
+    /**
+     * 表名
+     */
     private String tableName;
 
+    /**
+     * 列名
+     */
     private String columnName;
 
-    public SelectItem(String tableName, String columnName) {
+    /**
+     * 显示的名字
+     */
+    private String name;
+
+    public SelectItem(String tableName, String columnName, String name) {
 
         this.tableName = tableName;
         this.columnName = columnName;
+        this.name = name;
     }
 
     public String getTableName() {
@@ -29,14 +41,24 @@ public class SelectItem {
         this.tableName = tableName;
     }
 
-    public String getColumName() {
+    public String getColumnName() {
 
         return columnName;
     }
 
-    public void setColumName(String columName) {
+    public void setColumnName(String columnName) {
 
-        this.columnName = columName;
+        this.columnName = columnName;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+
+        this.name = name;
     }
 
     @Override
@@ -49,14 +71,15 @@ public class SelectItem {
             return false;
         }
 
-        SelectItem that = (SelectItem) o;
-        return AssistUtils.equals(tableName, that.tableName) &&
-                AssistUtils.equals(columnName, that.columnName);
+        SelectItem item = (SelectItem) o;
+        return AssistUtils.equals(tableName, item.tableName) &&
+                AssistUtils.equals(columnName, item.columnName) &&
+                AssistUtils.equals(name, item.name);
     }
 
     @Override
     public int hashCode() {
 
-        return AssistUtils.hashCode(tableName, columnName);
+        return AssistUtils.hashCode(tableName, columnName, name);
     }
 }

@@ -2,7 +2,11 @@ package com.asa.lab.structure.service.spark;
 
 import com.asa.lab.internalimp.datasource.driver.DataSourceDriverContent;
 import com.asa.lab.internalimp.operator.filter.FilterDriverContent;
+import com.asa.lab.internalimp.sql.DSConstant;
+import com.asa.lab.internalimp.sql.DSRelationProvider;
 import org.apache.spark.SparkContext;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 
@@ -81,5 +85,14 @@ public class SparkContentManager {
             session.close();
         }
         this.session = null;
+    }
+
+    public Dataset<Row> getDataset(String tableName) {
+
+        return getSession()
+                .read()
+                .format(DSRelationProvider.CLASSPATH)
+                .option(DSConstant.TABLE_NAME, tableName)
+                .load();
     }
 }

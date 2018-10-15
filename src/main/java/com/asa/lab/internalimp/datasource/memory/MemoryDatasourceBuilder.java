@@ -58,6 +58,7 @@ public class MemoryDatasourceBuilder {
             set.setData(rows);
         }
         datasource.setDataSet(set);
+        datasource.setName(tableName);
         clear();
         return datasource;
     }
