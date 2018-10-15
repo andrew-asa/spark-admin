@@ -1,11 +1,10 @@
 package com.asa.lab.internalimp.sql.rdd;
 
 import com.asa.lab.internalimp.datasource.driver.DataSourceDriverContent;
-import com.asa.lab.internalimp.sql.relation.ColumnTypeToDataTypeVisitor;
 import com.asa.lab.structure.datasource.Column;
 import com.asa.lab.structure.datasource.DataSource;
 import com.asa.lab.structure.datasource.RowSet;
-import com.asa.lab.utils.ArrayUtils;
+import com.asa.utils.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.types.StructType;

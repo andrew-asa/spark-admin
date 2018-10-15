@@ -7,10 +7,10 @@ import com.asa.lab.structure.datasource.DataSchema;
 import com.asa.lab.structure.datasource.DataSet;
 import com.asa.lab.structure.datasource.DataSource;
 import com.asa.lab.structure.datasource.Type;
-import com.asa.lab.utils.ArrayUtils;
-import com.asa.lab.utils.ComparatorUtils;
+import com.asa.utils.ArrayUtils;
+import com.asa.utils.ComparatorUtils;
+import com.asa.utils.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
@@ -121,7 +121,7 @@ public class DataSourceHelper {
                 for (Column column : columns) {
                     String cn = column.getName();
                     int len = cn.length() / "-".length();
-                    sp.append(com.asa.lab.utils.StringUtils.clone("-", len));
+                    sp.append(StringUtils.clone("-", len));
                     head.append(cn);
                     head.append("|");
                     sp.append("+");

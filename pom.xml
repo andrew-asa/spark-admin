@@ -6,6 +6,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
+        <system.lib.dir>/Users/andrew_asa/Documents/code/github/andrew-asa/lib</system.lib.dir>
     </properties>
     <groupId>com.asa.lab.spark</groupId>
     <artifactId>spark-admin</artifactId>
@@ -30,6 +31,23 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.6</version>
+        </dependency>
+
+        <!-- 本地文件-->
+        <dependency>
+            <groupId>com.asa</groupId>
+            <artifactId>com.asa.third</artifactId>
+            <version>1.0.0-SNAPSHORT</version>
+            <scope>system</scope>
+            <systemPath>${system.lib.dir}/com.asa.third-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.asa</groupId>
+            <artifactId>com.asa.base</artifactId>
+            <version>1.0.0-SNAPSHORT</version>
+            <scope>system</scope>
+            <systemPath>${system.lib.dir}/com.asa.base-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
     <build>

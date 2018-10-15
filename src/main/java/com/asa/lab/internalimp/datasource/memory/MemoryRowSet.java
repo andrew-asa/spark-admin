@@ -2,7 +2,7 @@ package com.asa.lab.internalimp.datasource.memory;
 
 import com.asa.lab.structure.datasource.Column;
 import com.asa.lab.structure.datasource.RowSet;
-import com.asa.lab.utils.AssistUtils;
+import com.asa.utils.AssistUtils;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
