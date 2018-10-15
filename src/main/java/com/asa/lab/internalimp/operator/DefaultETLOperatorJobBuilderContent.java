@@ -5,6 +5,8 @@ import com.asa.lab.internalimp.operator.filter.FilterOperator;
 import com.asa.lab.internalimp.operator.filter.FilterJobBuilder;
 import com.asa.lab.internalimp.operator.select.SelectJobBuilder;
 import com.asa.lab.internalimp.operator.select.SelectOperator;
+import com.asa.lab.internalimp.operator.sort.ColumnSortJobBuilder;
+import com.asa.lab.internalimp.operator.sort.ColumnSortOperator;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.operator.ETLOperatorJobBuilder;
 
@@ -36,6 +38,7 @@ public class DefaultETLOperatorJobBuilderContent {
 
         jobBuilderMap.put(FilterOperator.NAME, new FilterJobBuilder());
         jobBuilderMap.put(SelectOperator.NAME, new SelectJobBuilder());
+        jobBuilderMap.put(ColumnSortOperator.NAME, new ColumnSortJobBuilder());
     }
 
     public static DefaultETLOperatorJobBuilderContent getInstance() {

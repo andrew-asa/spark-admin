@@ -8,6 +8,8 @@ import com.asa.lab.internalimp.operator.filter.column.ColumnInFilterOperator;
 import com.asa.lab.internalimp.operator.filter.FilterOperatorHelper;
 import com.asa.lab.internalimp.operator.select.SelectOperator;
 import com.asa.lab.internalimp.operator.select.SelectOperatorHelper;
+import com.asa.lab.internalimp.operator.sort.ColumnSortOperator;
+import com.asa.lab.internalimp.operator.sort.SortOperatorHelper;
 import com.asa.lab.structure.datasource.DataSource;
 import com.asa.lab.structure.datasource.Type;
 import com.asa.lab.structure.operator.ETLOperator;
@@ -38,6 +40,39 @@ public class DefaultETLBuilderTest {
     public void after() {
 
         SparkContentManager.getInstance().closeSession();
+    }
+
+    @Test
+    public void testSort() {
+        MemoryDatasource dataSource = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.String},
+                new String[]{"sheng", "shi"},
+                new Object[][]{
+                        {"江苏", "南京"},
+                        {"浙江", "宁波"},
+                        {"江苏", "南通"},
+                });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
+
+
+        MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.String},
+                new String[]{"sheng", "shi"},
+                new Object[][]{
+                        {"浙江", "宁波"},
+                        {"江苏", "南京"},
+                        {"江苏", "南通"},
+                });
+
+        DefaultETLBuilder builder = new DefaultETLBuilder();
+        List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
+        ColumnSortOperator columnFilterOperator = SortOperatorHelper.buildSortOperator(new String[]{"sheng"}, new boolean[]{true});
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
+        ETLOperators.add(columnFilterOperator);
+        ETLJobBuilderContent content = new ETLJobBuilderContent();
+        DataSource result = builder.build(content, ETLOperators);
+        DataSourceHelper.show(result);
+        Assert.assertTrue(DataSourceHelper.equalDataSet(result, expect));
     }
 
 
