@@ -59,14 +59,14 @@ public class DefaultETLBuilderTest {
                 new Object[][]{
                         {"江苏"},
                         {"浙江"},
-                        {"广州"},
+                        {"广东"},
                 });
 
         DefaultETLBuilder builder = new DefaultETLBuilder();
         List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
         SelectOperator columnFilterOperator = SelectOperatorHelper.buildSelectOperator(
                 new String[]{tableName},
-                new String[]{"省"});
+                new String[]{"sheng"});
         ETLOperators.add(columnFilterOperator);
         ETLJobBuilderContent content = new ETLJobBuilderContent();
         DataSource result = builder.build(dataSource, content, ETLOperators);

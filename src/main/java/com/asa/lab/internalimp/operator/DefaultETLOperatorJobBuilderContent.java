@@ -3,6 +3,8 @@ package com.asa.lab.internalimp.operator;
 import com.asa.lab.internalimp.datasource.driver.DataSourceDriverContent;
 import com.asa.lab.internalimp.operator.filter.FilterOperator;
 import com.asa.lab.internalimp.operator.filter.FilterJobBuilder;
+import com.asa.lab.internalimp.operator.select.SelectJobBuilder;
+import com.asa.lab.internalimp.operator.select.SelectOperator;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.operator.ETLOperatorJobBuilder;
 
@@ -33,6 +35,7 @@ public class DefaultETLOperatorJobBuilderContent {
     private void setDefaultOperatorJobBuilder() {
 
         jobBuilderMap.put(FilterOperator.NAME, new FilterJobBuilder());
+        jobBuilderMap.put(SelectOperator.NAME, new SelectJobBuilder());
     }
 
     public static DefaultETLOperatorJobBuilderContent getInstance() {
@@ -49,6 +52,10 @@ public class DefaultETLOperatorJobBuilderContent {
 
     public ETLOperatorJobBuilder getETLOperatorJobBuilder(ETLOperator operator) {
 
-        return jobBuilderMap.get(operator.getName());
+        ETLOperatorJobBuilder builder = jobBuilderMap.get(operator.getName());
+        if (builder == null) {
+            throw new RuntimeException("no suit operator job builder");
+        }
+        return builder;
     }
 }
