@@ -26,12 +26,12 @@ public class SparkConfigure {
 
     public String getMaster() {
 
-        return MapUtils.getString(properties, SparkConstanConstant.MASTER, SparkConstanConstant.DEFAULT_MASTER);
+        return MapUtils.getString(properties, SparkConstant.MASTER, SparkConstant.DEFAULT_MASTER);
     }
 
     public String getAppName() {
 
-        return MapUtils.getString(properties, SparkConstanConstant.APPNAME, SparkConstanConstant.DEFAULT_APP_NAME);
+        return MapUtils.getString(properties, SparkConstant.APPNAME, SparkConstant.DEFAULT_APP_NAME);
     }
 
     public Object getPropertie(String key) {

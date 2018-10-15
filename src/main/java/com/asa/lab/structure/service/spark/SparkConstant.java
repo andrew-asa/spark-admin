@@ -4,7 +4,7 @@ package com.asa.lab.structure.service.spark;
  * @author andrew_asa
  * @date 2018/10/11.
  */
-public class SparkConstanConstant {
+public class SparkConstant {
 
     public static final String MASTER = "master";
 
