@@ -13,6 +13,7 @@ import com.asa.utils.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.junit.Assert;
 
 /**
  * @author andrew_asa
@@ -101,6 +102,26 @@ public class DataSourceHelper {
         }
         return true;
     }
+
+    /**
+     * 数据是否相同
+     *
+     * @param ds1
+     * @param ds2
+     * @return
+     */
+    public static boolean assertDataSource(DataSource ds1, DataSource ds2) {
+
+        if (!equalDataSet(ds1, ds2)) {
+            System.out.println("--------------actual-----------");
+            show(ds1);
+            System.out.println("--------------expected-----------");
+            show(ds2);
+            return false;
+        }
+        return true;
+    }
+
 
     public static void show(DataSource source) {
 

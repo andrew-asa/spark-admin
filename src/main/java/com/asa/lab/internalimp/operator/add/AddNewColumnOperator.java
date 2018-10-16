@@ -1,5 +1,6 @@
 package com.asa.lab.internalimp.operator.add;
 
+import com.asa.lab.structure.datasource.Type;
 import com.asa.lab.structure.operator.ETLOperator;
 
 /**
@@ -16,6 +17,16 @@ public abstract class AddNewColumnOperator implements ETLOperator, AddNewColumnS
      */
     private String columnName;
 
+    /**
+     * 需要转换成为的类型
+     */
+    private Type type;
+
+    /**
+     * 是否是自动决定类型
+     */
+    private boolean typeAuto = true;
+
     @Override
     public String getName() {
 
@@ -30,5 +41,25 @@ public abstract class AddNewColumnOperator implements ETLOperator, AddNewColumnS
     public void setColumnName(String columnName) {
 
         this.columnName = columnName;
+    }
+
+    public Type getType() {
+
+        return type;
+    }
+
+    public void setType(Type type) {
+
+        this.type = type;
+    }
+
+    public boolean isTypeAuto() {
+
+        return typeAuto;
+    }
+
+    public void setTypeAuto(boolean typeAuto) {
+
+        this.typeAuto = typeAuto;
     }
 }

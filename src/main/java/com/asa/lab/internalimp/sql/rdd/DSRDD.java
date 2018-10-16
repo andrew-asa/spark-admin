@@ -58,6 +58,4 @@ public class DSRDD extends BaseRDD<InternalRow> {
 
         return DataSourceDriverContent.getInstance().getDriver(getDataSource());
     }
-
-
 }

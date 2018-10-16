@@ -16,7 +16,6 @@ import com.asa.lab.structure.datasource.Type;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.service.etl.ETLJobBuilderContent;
 import com.asa.lab.structure.service.spark.SparkContentManager;
-import org.apache.spark.sql.SparkSession;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

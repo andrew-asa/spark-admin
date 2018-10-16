@@ -14,14 +14,14 @@ import org.apache.spark.sql.Row;
 public class AddExpressionDriver implements AddNewColumnDriver {
 
     @Override
-    public Dataset<Row> build(Dataset<Row> dataSet, AddNewColumnOperator operator, ETLJobBuilderContent content) {
+    public Dataset<Row> build(Dataset<Row> dataFrame, AddNewColumnOperator operator, ETLJobBuilderContent content) {
 
         AddExpressionColumn expressionColumn = (AddExpressionColumn) operator;
         String expression = expressionColumn.getExpression();
         if (StringUtils.isNotEmpty(expression)) {
             String columnName = expressionColumn.getColumnName();
-            dataSet=dataSet.selectExpr("*", expression + " as " + columnName);
+            dataFrame = dataFrame.selectExpr("*", expression + " as " + columnName);
         }
-        return dataSet;
+        return dataFrame;
     }
 }

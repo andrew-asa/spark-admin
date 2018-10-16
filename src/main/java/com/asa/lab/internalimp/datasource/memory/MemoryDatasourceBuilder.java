@@ -4,6 +4,8 @@ import com.asa.lab.internalimp.datasource.BaseColumn;
 import com.asa.lab.internalimp.datasource.BaseDataSchema;
 import com.asa.lab.structure.datasource.Column;
 import com.asa.lab.structure.datasource.Type;
+import com.asa.utils.ArrayUtils;
+import com.asa.utils.StringUtils;
 
 /**
  * Created by andrew_asa on 2018/8/3.
@@ -39,17 +41,38 @@ public class MemoryDatasourceBuilder {
 
     public MemoryDatasource build() {
 
+        if (ArrayUtils.length(types) != ArrayUtils.length(names) && ArrayUtils.length(types) != ArrayUtils.length(data)) {
+            throw new RuntimeException(
+                    StringUtils.messageFormat(
+                            "type length {} , names length {} , data length {} no the same",
+                            ArrayUtils.length(types),
+                            ArrayUtils.length(names),
+                            ArrayUtils.length(data)));
+        }
+
         MemoryDatasource datasource = new MemoryDatasource();
+
         MemoryDataSet set = new MemoryDataSet();
+
         int columnLen = types.length;
+
         Column[] columns = new Column[columnLen];
-        for (int i = 0; i < columnLen; i++) {
+        for (
+
+                int i = 0;
+
+                i < columnLen; i++)
+
+        {
             BaseColumn column = new BaseColumn(types[i], names[i]);
             columns[i] = column;
         }
+
         BaseDataSchema dataSchema = new BaseDataSchema(columns);
         datasource.setSchema(dataSchema);
-        if (data != null) {
+        if (data != null)
+
+        {
             MemoryRowSet[] rows = new MemoryRowSet[data.length];
             for (int i = 0; i < data.length; i++) {
                 MemoryRowSet row = new MemoryRowSet(columns, data[i]);
@@ -59,6 +82,7 @@ public class MemoryDatasourceBuilder {
         }
         datasource.setDataSet(set);
         datasource.setName(tableName);
+
         clear();
         return datasource;
     }

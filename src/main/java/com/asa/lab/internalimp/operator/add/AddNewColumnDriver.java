@@ -10,5 +10,5 @@ import org.apache.spark.sql.Row;
  */
 public interface AddNewColumnDriver {
 
-    Dataset<Row> build(Dataset<Row> dataSet, AddNewColumnOperator operator, ETLJobBuilderContent content);
+    Dataset<Row> build(Dataset<Row> dataFrame, AddNewColumnOperator operator, ETLJobBuilderContent content);
 }

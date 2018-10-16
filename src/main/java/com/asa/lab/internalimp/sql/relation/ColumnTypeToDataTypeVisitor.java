@@ -24,6 +24,7 @@ public class ColumnTypeToDataTypeVisitor implements TypeVisitor<DataType> {
     public static ColumnTypeToDataTypeVisitor INSTANT = new ColumnTypeToDataTypeVisitor();
 
     public static Type convertToDataType(StructField structField) {
+
         DataType dataType = structField.dataType();
         if (DataTypes.BooleanType.equals(dataType)) {
             return Type.Bool;
