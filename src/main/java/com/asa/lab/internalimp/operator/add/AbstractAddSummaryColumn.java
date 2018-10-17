@@ -1,6 +1,8 @@
 package com.asa.lab.internalimp.operator.add;
 
 
+import com.asa.utils.AssistUtils;
+
 import java.util.List;
 
 /**
@@ -59,5 +61,26 @@ public abstract class AbstractAddSummaryColumn extends AddNewColumnOperator {
     public void setInGroup(boolean inGroup) {
 
         this.inGroup = inGroup;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractAddSummaryColumn)) {
+            return false;
+        }
+        AbstractAddSummaryColumn that = (AbstractAddSummaryColumn) o;
+        return AssistUtils.equals(inGroup, that.inGroup) &&
+                AssistUtils.equals(summaryColumn, that.summaryColumn) &&
+                AssistUtils.equals(groupColumns, that.groupColumns);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return AssistUtils.hashCode(summaryColumn, groupColumns, inGroup);
     }
 }

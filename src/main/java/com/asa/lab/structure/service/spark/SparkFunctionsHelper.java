@@ -252,6 +252,53 @@ public class SparkFunctionsHelper {
                 );
     }
 
+    /**
+     * 所有值累计
+     *
+     * @param summaryColName
+     * @return
+     */
+    public static Column rankInAll(String summaryColName, boolean desc) {
+
+        if (desc) {
+            return functions
+                    .rank()
+                    .over(Window.orderBy(functions
+                                                 .col(summaryColName)
+                                                 .desc()
+                    ));
+        } else {
+            return functions
+                    .rank()
+                    .over(Window.orderBy(functions
+                                                 .col(summaryColName)
+                                                 .asc())
+                    );
+        }
+    }
+
+    /**
+     * 组内所有值累计
+     *
+     * @param summaryColName
+     * @return
+     */
+    public static Column rankInGroup(String summaryColName, List<String> groupColumns, boolean desc) {
+
+        if (desc) {
+            return functions.rank()
+                    .over(Window.partitionBy(transferToSeqOfColumns(groupColumns))
+                                  .orderBy(org.apache.spark.sql.functions.col(summaryColName).desc())
+                    );
+        } else {
+            return functions.rank()
+                    .over(
+                            Window.partitionBy(transferToSeqOfColumns(groupColumns))
+                                    .orderBy(summaryColName)
+                    );
+        }
+    }
+
     public static Seq<Column> transferToSeqOfColumns(List<String> fieldList) {
 
         List<Column> columnList = fieldList.stream().map(Column::new).collect(Collectors.toList());

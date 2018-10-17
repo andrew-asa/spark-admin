@@ -16,7 +16,7 @@ public class AddNewColumnJobBuilder implements ETLOperatorJobBuilder {
     public Dataset<Row> build(Dataset<Row> dataSet, ETLOperator operator, ETLJobBuilderContent content) {
 
         AddNewColumnOperator addNewColumnOperator = (AddNewColumnOperator) operator;
-        AddNewColumnDriver filterDriver = AddNewColumnDriverContent.getInstance().getAddNewColumnDriver(addNewColumnOperator);
-        return filterDriver.build(dataSet, addNewColumnOperator, content);
+        AddNewColumnDriver addNewColumnDriver = AddNewColumnDriverContent.getInstance().getAddNewColumnDriver(addNewColumnOperator);
+        return addNewColumnDriver.build(dataSet, addNewColumnOperator, content);
     }
 }

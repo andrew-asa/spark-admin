@@ -2,6 +2,7 @@ package com.asa.lab.internalimp.operator.add;
 
 import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeColumn;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionColumn;
+import com.asa.lab.internalimp.operator.add.rank.AddRankColumn;
 import com.asa.lab.internalimp.operator.add.summary.AddSummaryColumn;
 import com.asa.lab.internalimp.operator.add.time.AddTimeColumn;
 import com.asa.lab.internalimp.operator.add.time.AddTimeDiffColumn;
@@ -114,5 +115,21 @@ public class AddNewColumnOperatorHelper {
         AddCumulativeColumn cumulativeColumn = new AddCumulativeColumn(summaryColumnName, groupColumns, inGroup);
         cumulativeColumn.setColumnName(columnName);
         return cumulativeColumn;
+    }
+
+    /**
+     * 新增列--排名
+     *
+     * @param columnName
+     * @param summaryColumnName
+     * @param groupColumns
+     * @param inGroup
+     * @return
+     */
+    public static AddRankColumn buildAddRankCumulativeColumn(String columnName, String summaryColumnName, List<String> groupColumns, boolean inGroup,boolean desc) {
+
+        AddRankColumn rankColumn = new AddRankColumn(summaryColumnName, groupColumns, inGroup,desc);
+        rankColumn.setColumnName(columnName);
+        return rankColumn;
     }
 }
