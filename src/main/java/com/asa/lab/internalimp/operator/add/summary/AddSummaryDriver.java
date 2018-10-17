@@ -28,11 +28,11 @@ public class AddSummaryDriver implements AddNewColumnDriver {
         SummaryType summaryType = addSummaryColumn.getSummaryType();
         List<String> groupColumns = addSummaryColumn.getGroupColumns();
         boolean isInGroup = addSummaryColumn.isInGroup();
-        String colName = addSummaryColumn.getName();
+        String colName = addSummaryColumn.getColumnName();
         Column column;
         dataFrame = dataFrame.withColumn(SparkFunctionsHelper.ROW_INDEX_COLUMN_NAME, functions.monotonically_increasing_id());
         if (isInGroup) {
-            column = summaryInGroup(dataFrame, summaryType, summaryColumn, groupColumns);
+            column = summaryInGroup(summaryType, summaryColumn, groupColumns);
         } else {
             column = summaryInAll(summaryType, summaryColumn);
         }
@@ -41,7 +41,7 @@ public class AddSummaryDriver implements AddNewColumnDriver {
         return dataFrame;
     }
 
-    private Column summaryInGroup(Dataset<Row> dataFrame, SummaryType summaryType, String summaryColumnName, List<String> groupsColumnNames) {
+    private Column summaryInGroup(SummaryType summaryType, String summaryColumnName, List<String> groupsColumnNames) {
 
         switch (summaryType) {
             case sum:

@@ -1,5 +1,6 @@
 package com.asa.lab.internalimp.operator.add;
 
+import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeColumn;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionColumn;
 import com.asa.lab.internalimp.operator.add.summary.AddSummaryColumn;
 import com.asa.lab.internalimp.operator.add.time.AddTimeColumn;
@@ -97,5 +98,21 @@ public class AddNewColumnOperatorHelper {
         AddSummaryColumn addTimeDiffColumn = new AddSummaryColumn(summaryColumnName, summaryType, groupColumns, inGroup);
         addTimeDiffColumn.setColumnName(columnName);
         return addTimeDiffColumn;
+    }
+
+    /**
+     * 新增列--累计值
+     *
+     * @param columnName
+     * @param summaryColumnName
+     * @param groupColumns
+     * @param inGroup
+     * @return
+     */
+    public static AddCumulativeColumn buildAddCumulativeColumn(String columnName, String summaryColumnName, List<String> groupColumns, boolean inGroup) {
+
+        AddCumulativeColumn cumulativeColumn = new AddCumulativeColumn(summaryColumnName, groupColumns, inGroup);
+        cumulativeColumn.setColumnName(columnName);
+        return cumulativeColumn;
     }
 }

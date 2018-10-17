@@ -1,5 +1,7 @@
 package com.asa.lab.internalimp.operator.add;
 
+import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeColumn;
+import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeDriver;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionColumn;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionDriver;
 import com.asa.lab.internalimp.operator.add.summary.AddSummaryColumn;
@@ -41,7 +43,7 @@ public class AddNewColumnDriverContent {
 
     private void init() {
 
-        driverMap = new HashMap<>();
+        driverMap = new HashMap<String, AddNewColumnDriver>();
         setDefaultDriver();
     }
 
@@ -54,6 +56,7 @@ public class AddNewColumnDriverContent {
         addDriver(AddTimeDiffColumn.SUB_NAME, new AddTimeDiffDriver());
         addDriver(AddTimeColumn.SUB_NAME, new AddTimeDriver());
         addDriver(AddSummaryColumn.SUB_NAME, new AddSummaryDriver());
+        addDriver(AddCumulativeColumn.SUB_NAME, new AddCumulativeDriver());
     }
 
     public AddNewColumnDriver getAddNewColumnDriver(AddNewColumnOperator operator) {

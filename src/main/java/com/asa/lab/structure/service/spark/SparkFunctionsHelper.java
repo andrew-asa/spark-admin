@@ -225,6 +225,33 @@ public class SparkFunctionsHelper {
                 .over(Window.partitionBy(transferToSeqOfColumns(groupsColumnNames)));
     }
 
+    /**
+     * 所有值累计
+     *
+     * @param summaryColName
+     * @return
+     */
+    public static Column cumulativeInAll(String summaryColName) {
+
+        return functions.sum(summaryColName)
+                .over(Window.rowsBetween(Window.unboundedPreceding(), Window.currentRow()));
+    }
+
+    /**
+     * 组内所有值累计
+     *
+     * @param summaryColName
+     * @return
+     */
+    public static Column cumulativeInGroup(String summaryColName, List<String> groupColumns) {
+
+        return functions.sum(summaryColName)
+                .over(
+                        Window.partitionBy(transferToSeqOfColumns(groupColumns))
+                                .rowsBetween(Window.unboundedPreceding(), Window.currentRow())
+                );
+    }
+
     public static Seq<Column> transferToSeqOfColumns(List<String> fieldList) {
 
         List<Column> columnList = fieldList.stream().map(Column::new).collect(Collectors.toList());

@@ -1,8 +1,5 @@
 package com.asa.lab.internalimp.operator.add;
 
-import com.asa.lab.internalimp.operator.filter.FilterDriver;
-import com.asa.lab.internalimp.operator.filter.FilterDriverContent;
-import com.asa.lab.internalimp.operator.filter.FilterOperator;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.operator.ETLOperatorJobBuilder;
 import com.asa.lab.structure.service.etl.ETLJobBuilderContent;
