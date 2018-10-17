@@ -15,7 +15,7 @@ public class AddTimeDiffColumn extends AddNewColumnOperator {
 
     public static final String SUB_NAME = "addTimeDiffColumn";
 
-    public static final String SYSTEM_COLUMN_NAME = "__system_column_";
+    public static final String SYSTEM_COLUMN_NAME = "";
 
     private String startColumn;
 

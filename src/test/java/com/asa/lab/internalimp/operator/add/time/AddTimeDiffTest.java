@@ -49,6 +49,7 @@ public class AddTimeDiffTest {
                         {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2069-01-01")},
                         {"lisi", Date.valueOf("2018-01-01"), Date.valueOf("2018-08-01")},
                         {"wangwu", Date.valueOf("2018-01-01"), Date.valueOf("2019-01-01")},
+                        {"wangwu", Date.valueOf("2018-01-01"), Date.valueOf("2019-01-01")},
                 });
         DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
 
@@ -60,12 +61,85 @@ public class AddTimeDiffTest {
                         {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2069-01-01"), 51},
                         {"lisi", Date.valueOf("2018-01-01"), Date.valueOf("2018-08-01"), 0},
                         {"wangwu", Date.valueOf("2018-01-01"), Date.valueOf("2019-01-01"), 1},
+                        {"wangwu", Date.valueOf("2018-01-01"), Date.valueOf("2019-01-01"), 1},
                 });
 
         DefaultETLBuilder builder = new DefaultETLBuilder();
         List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
         ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
         ETLOperators.add(AddNewColumnOperatorHelper.buildAddTimeDiffColumn("newColumn", "born", "dead", TimeInterval.Year, Type.Int));
+        ETLJobBuilderContent content = new ETLJobBuilderContent();
+        DataSource result = builder.build(content, ETLOperators);
+        Assert.assertTrue(DataSourceHelper.assertDataSource(result, expect));
+    }
+
+    @Test
+    public void testAddTimeDiffColumn_YEAR_CURRENT_TIME() {
+
+        java.util.Date now = new java.util.Date();
+        int year = now.getYear() + 1900;
+        MemoryDatasource dataSource = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.Date, Type.Date},
+                new String[]{"name", "born", "dead"},
+                new Object[][]{
+                        {"zhangsan", Date.valueOf("2018-01-01"), null},
+                        {"zhangsan", Date.valueOf("2017-01-01"), null,},
+                        {"zhangsan", Date.valueOf("2016-01-01"), null,},
+                        {"zhangsan", Date.valueOf("2016-02-01"), null,},
+                });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
+
+
+        MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.Date, Type.Date, Type.Date},
+                new String[]{"name", "born", "dead", "newColumn"},
+                new Object[][]{
+                        {"zhangsan", Date.valueOf("2018-01-01"), null, year - 2018},
+                        {"zhangsan", Date.valueOf("2017-01-01"), null, year - 2017},
+                        {"zhangsan", Date.valueOf("2016-01-01"), null, year - 2016},
+                        {"zhangsan", Date.valueOf("2016-02-01"), null, year - 2016},
+                });
+
+        DefaultETLBuilder builder = new DefaultETLBuilder();
+        List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
+        ETLOperators.add(AddNewColumnOperatorHelper.buildAddTimeDiffColumn("newColumn", "born", "", TimeInterval.Year, Type.Int));
+        ETLJobBuilderContent content = new ETLJobBuilderContent();
+        DataSource result = builder.build(content, ETLOperators);
+        Assert.assertTrue(DataSourceHelper.assertDataSource(result, expect));
+    }
+
+    @Test
+    public void testAddTimeDiffColumn_YEAR_CURRENT_TIME2() {
+
+        java.util.Date now = new java.util.Date();
+        int year = now.getYear() + 1900;
+        MemoryDatasource dataSource = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.Date, Type.Date},
+                new String[]{"name", "born", "dead"},
+                new Object[][]{
+                        {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2018-01-01")},
+                        {"zhangsan", Date.valueOf("2017-01-01"), Date.valueOf("2017-01-01")},
+                        {"zhangsan", Date.valueOf("2016-01-01"), Date.valueOf("2016-01-01")},
+                        {"zhangsan", Date.valueOf("2016-02-01"), Date.valueOf("2016-02-01")},
+                });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
+
+
+        MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.Date, Type.Date, Type.Date},
+                new String[]{"name", "born", "dead", "newColumn"},
+                new Object[][]{
+                        {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2018-01-01"), 2018 - year},
+                        {"zhangsan", Date.valueOf("2017-01-01"), Date.valueOf("2017-01-01"), 2017 - year},
+                        {"zhangsan", Date.valueOf("2016-01-01"), Date.valueOf("2016-01-01"), 2016 - year},
+                        {"zhangsan", Date.valueOf("2016-02-01"), Date.valueOf("2016-02-01"), 2016 - year},
+                });
+
+        DefaultETLBuilder builder = new DefaultETLBuilder();
+        List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
+        ETLOperators.add(AddNewColumnOperatorHelper.buildAddTimeDiffColumn("newColumn", "", "dead", TimeInterval.Year, Type.Int));
         ETLJobBuilderContent content = new ETLJobBuilderContent();
         DataSource result = builder.build(content, ETLOperators);
         Assert.assertTrue(DataSourceHelper.assertDataSource(result, expect));
@@ -100,6 +174,40 @@ public class AddTimeDiffTest {
         List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
         ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
         ETLOperators.add(AddNewColumnOperatorHelper.buildAddTimeDiffColumn("newColumn", "born", "dead", TimeInterval.Season, Type.Int));
+        ETLJobBuilderContent content = new ETLJobBuilderContent();
+        DataSource result = builder.build(content, ETLOperators);
+        Assert.assertTrue(DataSourceHelper.assertDataSource(result, expect));
+    }
+
+    @Test
+    public void testAddTimeDiffColumn_MONTH() {
+
+        MemoryDatasource dataSource = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.Date, Type.Date},
+                new String[]{"name", "born", "dead"},
+                new Object[][]{
+                        {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2018-02-01")},
+                        {"zhangsan", Date.valueOf("2018-02-01"), Date.valueOf("2018-01-13")},
+                        {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2018-02-18")},
+                        {"zhangsan", Date.valueOf("2019-01-01"), Date.valueOf("2018-01-01")},
+                });
+        DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
+
+
+        MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
+                new Type[]{Type.String, Type.Date, Type.Date, Type.Int},
+                new String[]{"name", "born", "dead", "newColumn"},
+                new Object[][]{
+                        {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2018-02-01"), 1},
+                        {"zhangsan", Date.valueOf("2018-02-01"), Date.valueOf("2018-01-13"), 0},
+                        {"zhangsan", Date.valueOf("2018-01-01"), Date.valueOf("2018-02-18"), 1},
+                        {"zhangsan", Date.valueOf("2019-01-01"), Date.valueOf("2018-01-01"), -12},
+                });
+
+        DefaultETLBuilder builder = new DefaultETLBuilder();
+        List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
+        ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
+        ETLOperators.add(AddNewColumnOperatorHelper.buildAddTimeDiffColumn("newColumn", "born", "dead", TimeInterval.Month, Type.Int));
         ETLJobBuilderContent content = new ETLJobBuilderContent();
         DataSource result = builder.build(content, ETLOperators);
         Assert.assertTrue(DataSourceHelper.assertDataSource(result, expect));

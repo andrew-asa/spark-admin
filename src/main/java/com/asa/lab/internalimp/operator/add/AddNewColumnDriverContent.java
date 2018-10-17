@@ -2,8 +2,12 @@ package com.asa.lab.internalimp.operator.add;
 
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionColumn;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionDriver;
+import com.asa.lab.internalimp.operator.add.summary.AddSummaryColumn;
+import com.asa.lab.internalimp.operator.add.summary.AddSummaryDriver;
+import com.asa.lab.internalimp.operator.add.time.AddTimeColumn;
 import com.asa.lab.internalimp.operator.add.time.AddTimeDiffColumn;
 import com.asa.lab.internalimp.operator.add.time.AddTimeDiffDriver;
+import com.asa.lab.internalimp.operator.add.time.AddTimeDriver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +52,8 @@ public class AddNewColumnDriverContent {
 
         addDriver(AddExpressionColumn.SUB_NAME, new AddExpressionDriver());
         addDriver(AddTimeDiffColumn.SUB_NAME, new AddTimeDiffDriver());
+        addDriver(AddTimeColumn.SUB_NAME, new AddTimeDriver());
+        addDriver(AddSummaryColumn.SUB_NAME, new AddSummaryDriver());
     }
 
     public AddNewColumnDriver getAddNewColumnDriver(AddNewColumnOperator operator) {

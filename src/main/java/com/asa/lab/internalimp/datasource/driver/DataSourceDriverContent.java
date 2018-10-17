@@ -68,8 +68,6 @@ public class DataSourceDriverContent {
     public StructType buildSchema(DataSource source) {
 
         List<StructField> structFields = getStructFields(source);
-        //structFields.add(new StructField(SqlConstants.ORDER_NAME, IntegerType, true, Metadata.empty()));
-        //structFields.add(new StructField(SqlConstants.PARTITION_NAME, IntegerType, true, Metadata.empty()));
         return new StructType(structFields.toArray(new StructField[0]));
     }
 
@@ -81,9 +79,14 @@ public class DataSourceDriverContent {
         for (Column column : columns) {
             Type type = column.getType();
             String name = column.getName();
-            DataType dataType = type.accept(ColumnTypeToDataTypeVisitor.INSTANT);
+            DataType dataType = convertToDataType(type);
             ret.add(new StructField(name, dataType, true, Metadata.empty()));
         }
         return ret;
+    }
+
+    public static DataType convertToDataType(Type type) {
+
+        return type.accept(ColumnTypeToDataTypeVisitor.INSTANT);
     }
 }
