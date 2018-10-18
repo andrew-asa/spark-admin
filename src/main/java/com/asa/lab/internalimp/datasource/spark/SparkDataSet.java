@@ -1,6 +1,5 @@
 package com.asa.lab.internalimp.datasource.spark;
 
-import com.asa.lab.internalimp.datasource.BaseDataSchema;
 import com.asa.lab.structure.datasource.DataSchema;
 import com.asa.lab.structure.datasource.DataSet;
 import com.asa.lab.structure.datasource.RowSet;
@@ -20,6 +19,10 @@ public class SparkDataSet implements DataSet {
     private Dataset<Row> rowDataset;
 
     private List<Row> rowList;
+
+    public SparkDataSet() {
+
+    }
 
     public SparkDataSet(DataSchema schema, Dataset<Row> rowDataset) {
 

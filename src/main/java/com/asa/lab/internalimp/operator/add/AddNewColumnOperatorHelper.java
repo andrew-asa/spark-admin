@@ -1,6 +1,8 @@
 package com.asa.lab.internalimp.operator.add;
 
 import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeColumn;
+import com.asa.lab.internalimp.operator.add.custom.AddCustomColumn;
+import com.asa.lab.internalimp.operator.add.custom.CustomGroupItem;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionColumn;
 import com.asa.lab.internalimp.operator.add.rank.AddRankColumn;
 import com.asa.lab.internalimp.operator.add.summary.AddSummaryColumn;
@@ -126,9 +128,24 @@ public class AddNewColumnOperatorHelper {
      * @param inGroup
      * @return
      */
-    public static AddRankColumn buildAddRankCumulativeColumn(String columnName, String summaryColumnName, List<String> groupColumns, boolean inGroup,boolean desc) {
+    public static AddRankColumn buildAddRankCumulativeColumn(String columnName, String summaryColumnName, List<String> groupColumns, boolean inGroup, boolean desc) {
 
-        AddRankColumn rankColumn = new AddRankColumn(summaryColumnName, groupColumns, inGroup,desc);
+        AddRankColumn rankColumn = new AddRankColumn(summaryColumnName, groupColumns, inGroup, desc);
+        rankColumn.setColumnName(columnName);
+        return rankColumn;
+    }
+
+    /**
+     * @param columnName
+     * @param customColumn
+     * @param item
+     * @param useOther
+     * @param otherName
+     * @return
+     */
+    public static AddCustomColumn buildAddCustomColumn(String columnName, String customColumn, List<CustomGroupItem> item, boolean useOther, String otherName) {
+
+        AddCustomColumn rankColumn = new AddCustomColumn(customColumn, item, useOther, otherName);
         rankColumn.setColumnName(columnName);
         return rankColumn;
     }

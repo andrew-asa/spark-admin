@@ -1,5 +1,6 @@
 package com.asa.lab.structure.datasource;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * 结果集
  * 对应数据库中的表
  */
-public interface DataSet {
+public interface DataSet extends Serializable {
 
     RowSet[] getDataArray();
 

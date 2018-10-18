@@ -2,6 +2,8 @@ package com.asa.lab.internalimp.operator.add;
 
 import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeColumn;
 import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeDriver;
+import com.asa.lab.internalimp.operator.add.custom.AddCustomColumn;
+import com.asa.lab.internalimp.operator.add.custom.AddCustomDriver;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionColumn;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionDriver;
 import com.asa.lab.internalimp.operator.add.rank.AddRankColumn;
@@ -60,6 +62,7 @@ public class AddNewColumnDriverContent {
         addDriver(AddSummaryColumn.SUB_NAME, new AddSummaryDriver());
         addDriver(AddCumulativeColumn.SUB_NAME, new AddCumulativeDriver());
         addDriver(AddRankColumn.SUB_NAME, new AddRankDriver());
+        addDriver(AddCustomColumn.SUB_NAME, new AddCustomDriver());
     }
 
     public AddNewColumnDriver getAddNewColumnDriver(AddNewColumnOperator operator) {
