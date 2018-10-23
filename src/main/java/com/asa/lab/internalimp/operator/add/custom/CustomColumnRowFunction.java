@@ -1,6 +1,5 @@
 package com.asa.lab.internalimp.operator.add.custom;
 
-import com.asa.lab.internalimp.operator.add.AddNewColumnOperator;
 import org.apache.spark.api.java.function.MapPartitionsFunction;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.types.StructType;

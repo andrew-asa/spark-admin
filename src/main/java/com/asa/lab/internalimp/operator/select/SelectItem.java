@@ -82,4 +82,10 @@ public class SelectItem {
 
         return AssistUtils.hashCode(tableName, columnName, name);
     }
+
+    @Override
+    public String toString() {
+
+        return AssistUtils.toString(this);
+    }
 }

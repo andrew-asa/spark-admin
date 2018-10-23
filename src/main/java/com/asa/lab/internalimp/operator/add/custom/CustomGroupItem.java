@@ -61,4 +61,10 @@ public class CustomGroupItem implements Serializable {
 
         return AssistUtils.hashCode(displayName, values);
     }
+
+    @Override
+    public String toString() {
+
+        return AssistUtils.toString(this);
+    }
 }

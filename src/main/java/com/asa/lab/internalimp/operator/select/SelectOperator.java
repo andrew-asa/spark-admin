@@ -64,4 +64,10 @@ public class SelectOperator implements ETLOperator {
 
         return AssistUtils.hashCode(items);
     }
+
+    @Override
+    public String toString() {
+
+        return AssistUtils.toString(this);
+    }
 }
