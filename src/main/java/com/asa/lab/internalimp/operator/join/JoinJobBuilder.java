@@ -10,11 +10,8 @@ import org.apache.spark.sql.Column;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
-import org.apache.spark.sql.types.StructField;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * @author andrew_asa
