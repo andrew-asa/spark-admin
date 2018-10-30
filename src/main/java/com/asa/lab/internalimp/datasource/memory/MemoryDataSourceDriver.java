@@ -29,6 +29,6 @@ public class MemoryDataSourceDriver implements DataSourceDriver {
         DataSet dataSet = source.getDataSet();
         List<RowSet> rowSets = dataSet.getDataList();
         Iterator<RowSet> iterator = rowSets.iterator();
-        return new BaseDSIterator(source, iterator);
+        return new BaseDSIterator(source, iterator, option);
     }
 }

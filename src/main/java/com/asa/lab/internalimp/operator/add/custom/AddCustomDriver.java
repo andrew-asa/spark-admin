@@ -32,7 +32,7 @@ public class AddCustomDriver implements AddNewColumnDriver {
         StructField field = new StructField(columnName, DataTypes.StringType, true, Metadata.empty());
         structFields.add(field);
         StructType structType = DataTypes.createStructType(structFields);
-        CustomColumnRowFunction columnRowFunction = new CustomColumnRowFunction(customColumn, structType);
+        GroupColumnRowFunction columnRowFunction = new GroupColumnRowFunction(customColumn, structType);
         dataFrame = dataFrame.mapPartitions(columnRowFunction, RowEncoder.apply(structType));
         return dataFrame;
     }

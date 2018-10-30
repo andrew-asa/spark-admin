@@ -37,9 +37,9 @@ public class DSRDD extends BaseRDD<InternalRow> {
     @Override
     public Iterator<InternalRow> compute(Partition split, TaskContext context) {
 
-        ComputeOption option = new ComputeOption(split, context);
+        ComputeOption option = new ComputeOption(split, context, requiredColumns);
         DataSource source = getDataSource();
-        return (Iterator)getDataSourceDriver().compute(source,option);
+        return (Iterator) getDataSourceDriver().compute(source, option);
     }
 
     @Override

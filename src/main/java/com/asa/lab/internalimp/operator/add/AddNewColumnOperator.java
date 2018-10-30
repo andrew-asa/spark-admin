@@ -13,7 +13,7 @@ public abstract class AddNewColumnOperator implements ETLOperator, AddNewColumnS
     public static final String NAME = "addNewColumn";
 
     /**
-     * 列名
+     * 显示的名字列名
      */
     private String columnName;
 

@@ -27,10 +27,19 @@ public class BaseInternalRow implements Row {
 
     private DataSource dataSource;
 
-    public BaseInternalRow(DataSource dataSource, RowSet rowSet) {
+    private ComputeOption option;
+
+    /**
+     * 需要的列
+     */
+    private String[] requiredColumns;
+
+    public BaseInternalRow(DataSource dataSource, RowSet rowSet, ComputeOption option) {
 
         this.dataSource = dataSource;
         this.rowSet = rowSet;
+        this.option = option;
+        this.requiredColumns = option.getRequiredColumns();
     }
 
     public RowSet getRowSet() {
@@ -64,6 +73,14 @@ public class BaseInternalRow implements Row {
     @Override
     public Object apply(int i) {
 
+        if (requiredColumns.length > 0) {
+
+            String columun = requiredColumns[i];
+            int index = fieldIndex(columun);
+            if (index >= 0) {
+                return rowSet.apply(index);
+            }
+        }
         return rowSet.apply(i);
     }
 
@@ -192,7 +209,7 @@ public class BaseInternalRow implements Row {
     @Override
     public int fieldIndex(String name) {
 
-        Column[] columns = rowSet.getColumns();
+        Column[] columns = dataSource.getSchema().getColumns();
         for (int i = 0; i < columns.length; i++) {
             if (StringUtils.equals(columns[i].getName(), name)) {
                 return i;

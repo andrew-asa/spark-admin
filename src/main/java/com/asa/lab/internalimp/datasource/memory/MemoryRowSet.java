@@ -4,6 +4,7 @@ import com.asa.lab.structure.datasource.Column;
 import com.asa.lab.structure.datasource.RowSet;
 import com.asa.utils.AssistUtils;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.sql.Date;
@@ -11,7 +12,7 @@ import java.sql.Date;
 /**
  * Created by andrew_asa on 2018/8/3.
  */
-public class MemoryRowSet implements RowSet {
+public class MemoryRowSet implements RowSet, Serializable {
 
     private Object[] data;
 

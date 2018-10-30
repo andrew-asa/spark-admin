@@ -49,6 +49,7 @@ public class BaseDSRelation extends BaseRelation implements PrunedFilteredScan, 
     @Override
     public void insert(Dataset<Row> data, boolean overwrite) {
 
+        System.out.println();
     }
 
     @Override

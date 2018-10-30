@@ -57,25 +57,18 @@ public class MemoryDatasourceBuilder {
         int columnLen = types.length;
 
         Column[] columns = new Column[columnLen];
-        for (
-
-                int i = 0;
-
-                i < columnLen; i++)
-
-        {
+        for (int i = 0; i < columnLen; i++) {
             BaseColumn column = new BaseColumn(types[i], names[i]);
             columns[i] = column;
         }
 
         BaseDataSchema dataSchema = new BaseDataSchema(columns);
         datasource.setSchema(dataSchema);
-        if (data != null)
-
-        {
+        if (data != null) {
             MemoryRowSet[] rows = new MemoryRowSet[data.length];
             for (int i = 0; i < data.length; i++) {
                 MemoryRowSet row = new MemoryRowSet(columns, data[i]);
+                row.setColumns(columns);
                 rows[i] = row;
             }
             set.setData(rows);

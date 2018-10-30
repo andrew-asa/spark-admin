@@ -1,13 +1,16 @@
 package com.asa.lab.internalimp.sql.rdd;
 
+import com.asa.utils.AssistUtils;
 import org.apache.spark.Partition;
 import org.apache.spark.TaskContext;
 import org.apache.spark.sql.catalyst.InternalRow;
+import org.apache.spark.sql.sources.Filter;
 import scala.collection.Iterator;
 
 /**
  * @author andrew_asa
  * @date 2018/10/12.
+ * 计算相关参数
  */
 public class ComputeOption {
 
@@ -15,10 +18,16 @@ public class ComputeOption {
 
     private TaskContext context;
 
-    public ComputeOption(Partition split, TaskContext context) {
+    /**
+     * 需要的列
+     */
+    private String[] requiredColumns;
+
+    public ComputeOption(Partition split, TaskContext context, String[] requiredColumns) {
 
         this.split = split;
         this.context = context;
+        this.requiredColumns = requiredColumns;
     }
 
     public Partition getSplit() {
@@ -39,5 +48,21 @@ public class ComputeOption {
     public void setContext(TaskContext context) {
 
         this.context = context;
+    }
+
+    public String[] getRequiredColumns() {
+
+        return requiredColumns;
+    }
+
+    public void setRequiredColumns(String[] requiredColumns) {
+
+        this.requiredColumns = requiredColumns;
+    }
+
+    @Override
+    public String toString() {
+
+        return AssistUtils.toString(this);
     }
 }

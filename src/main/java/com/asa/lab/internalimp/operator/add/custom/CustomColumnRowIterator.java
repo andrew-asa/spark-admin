@@ -1,5 +1,9 @@
 package com.asa.lab.internalimp.operator.add.custom;
 
+import com.asa.lab.structure.base.group.custom.CustomGroupColumn;
+import com.asa.lab.structure.base.group.custom.CustomGroupItem;
+import com.asa.lab.structure.base.group.GroupColumn;
+import com.asa.lab.structure.base.group.GroupType;
 import com.asa.utils.ListUtils;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema;
@@ -25,6 +29,8 @@ public class CustomColumnRowIterator implements Iterator<Row>, Serializable {
 
     private String customColumn;
 
+    private GroupColumn groupInfo;
+
     private Map<Object, Object> cache;
 
     public CustomColumnRowIterator(Iterator<Row> rowIterator, AddCustomColumn operator, StructType structType) {
@@ -37,7 +43,8 @@ public class CustomColumnRowIterator implements Iterator<Row>, Serializable {
 
     private void init() {
 
-        customColumn = operator.getCustomColumn();
+        groupInfo = operator.getGroupInfo();
+        customColumn = groupInfo.getColumnSourceName();
         cache = new HashMap<>();
     }
 
@@ -58,7 +65,7 @@ public class CustomColumnRowIterator implements Iterator<Row>, Serializable {
                 replaceValues[i] = row.apply(i);
             }
             Object o = row.getAs(customColumn);
-            replaceValues[size] = getCustomValue(o);
+            replaceValues[size] = getGroupValue(o);
         }
         row = new GenericRowWithSchema(replaceValues, structType);
         return row;
@@ -81,17 +88,26 @@ public class CustomColumnRowIterator implements Iterator<Row>, Serializable {
 
     public void setOperator(AddCustomColumn operator) {
 
-        List<CustomGroupItem> customGroupItems = operator.getCustom();
         this.operator = operator;
     }
 
-    private Object getCustomValue(Object value) {
+    private Object getGroupValue(Object value) {
+
+        GroupType groupType = groupInfo.getGroupType();
+        if (GroupType.CUSTOM.equals(groupType)) {
+            CustomGroupColumn column = (CustomGroupColumn) groupInfo;
+            return getCustomValue(value, column);
+        }
+        return value;
+    }
+
+    private Object getCustomValue(Object value, CustomGroupColumn column) {
 
         if (value != null) {
             if (cache.containsKey(value)) {
                 return cache.get(value);
             }
-            List<CustomGroupItem> customGroupItems = operator.getCustom();
+            List<CustomGroupItem> customGroupItems = column.getCustom();
             if (ListUtils.isNotEmpty(customGroupItems)) {
                 for (CustomGroupItem item : customGroupItems) {
                     List<Object> values = item.getValues();
@@ -101,8 +117,8 @@ public class CustomColumnRowIterator implements Iterator<Row>, Serializable {
                     }
                 }
             }
-            if (operator.isUserOther()) {
-                return operator.getOtherGroupName();
+            if (column.isUserOther()) {
+                return column.getOtherGroupName();
             }
         }
         return value;

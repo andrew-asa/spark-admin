@@ -7,6 +7,7 @@ import com.asa.lab.internalimp.datasource.memory.MemoryDatasource;
 import com.asa.lab.internalimp.etl.DefaultETLBuilder;
 import com.asa.lab.internalimp.operator.add.AddNewColumnOperatorHelper;
 import com.asa.lab.internalimp.operator.select.SelectOperatorHelper;
+import com.asa.lab.structure.base.group.custom.CustomGroupItem;
 import com.asa.lab.structure.datasource.DataSource;
 import com.asa.lab.structure.datasource.Type;
 import com.asa.lab.structure.operator.ETLOperator;

@@ -2,7 +2,8 @@ package com.asa.lab.internalimp.operator.add;
 
 import com.asa.lab.internalimp.operator.add.cumulative.AddCumulativeColumn;
 import com.asa.lab.internalimp.operator.add.custom.AddCustomColumn;
-import com.asa.lab.internalimp.operator.add.custom.CustomGroupItem;
+import com.asa.lab.structure.base.group.custom.CustomGroupColumn;
+import com.asa.lab.structure.base.group.custom.CustomGroupItem;
 import com.asa.lab.internalimp.operator.add.expression.AddExpressionColumn;
 import com.asa.lab.internalimp.operator.add.rank.AddRankColumn;
 import com.asa.lab.internalimp.operator.add.summary.AddSummaryColumn;
@@ -136,17 +137,18 @@ public class AddNewColumnOperatorHelper {
     }
 
     /**
-     * @param columnName
-     * @param customColumn
-     * @param item
-     * @param useOther
-     * @param otherName
+     * @param displayName  显示的名称
+     * @param customColumn 定制的列
+     * @param item         自定义分组的项
+     * @param useOther     是否使用其他分组
+     * @param otherName    其他分组的名字
      * @return
      */
-    public static AddCustomColumn buildAddCustomColumn(String columnName, String customColumn, List<CustomGroupItem> item, boolean useOther, String otherName) {
+    public static AddCustomColumn buildAddCustomColumn(String displayName, String customColumn, List<CustomGroupItem> item, boolean useOther, String otherName) {
 
-        AddCustomColumn rankColumn = new AddCustomColumn(customColumn, item, useOther, otherName);
-        rankColumn.setColumnName(columnName);
-        return rankColumn;
+        CustomGroupColumn customGroupColumn = new CustomGroupColumn(customColumn, displayName, item, useOther, otherName);
+        AddCustomColumn addCustomColumn = new AddCustomColumn(customGroupColumn);
+        addCustomColumn.setColumnName(displayName);
+        return addCustomColumn;
     }
 }

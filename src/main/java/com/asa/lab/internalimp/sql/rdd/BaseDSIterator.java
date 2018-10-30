@@ -17,10 +17,13 @@ public class BaseDSIterator extends AbstractDSIterator<BaseInternalRow> {
 
     private DataSource dataSource;
 
-    public BaseDSIterator(DataSource dataSource, Iterator<RowSet> iterator) {
+    private ComputeOption option;
+
+    public BaseDSIterator(DataSource dataSource, Iterator<RowSet> iterator, ComputeOption option) {
 
         this.dataSource = dataSource;
         this.iterator = iterator;
+        this.option = option;
     }
 
     @Override
@@ -33,6 +36,6 @@ public class BaseDSIterator extends AbstractDSIterator<BaseInternalRow> {
     public BaseInternalRow next() {
 
         RowSet rowSet = iterator.next();
-        return new BaseInternalRow(dataSource, rowSet);
+        return new BaseInternalRow(dataSource, rowSet, option);
     }
 }

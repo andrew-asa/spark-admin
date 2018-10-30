@@ -16,9 +16,13 @@
     <version>1.0-SNAPSHOT</version>
 
     <repositories>
+        <!--<repository>-->
+            <!--<id>andrew.asa-maven-repository</id>-->
+            <!--<url>https://raw.githubusercontent.com/andrew-asa/maven-repository/master/repository</url>-->
+        <!--</repository>-->
         <repository>
-            <id>andrew.asa-maven-repository</id>
-            <url>https://raw.githubusercontent.com/andrew-asa/maven-repository/master/repository</url>
+            <id>hengyunabc-maven-repo</id>
+            <url>file:/Users/andrew_asa/Documents/code/github/andrew-asa/maven-repository/</url>
         </repository>
     </repositories>
 

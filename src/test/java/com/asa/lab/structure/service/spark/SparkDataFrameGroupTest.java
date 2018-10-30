@@ -4,12 +4,17 @@ import com.asa.lab.internalimp.datasource.DataBaseContent;
 import com.asa.lab.internalimp.datasource.DataSourceHelper;
 import com.asa.lab.internalimp.datasource.memory.MemoryDatasource;
 import com.asa.lab.structure.datasource.Type;
+import org.apache.spark.sql.AnalysisException;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
+import org.apache.spark.sql.types.DataTypes;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author andrew_asa
@@ -136,4 +141,12 @@ public class SparkDataFrameGroupTest {
         DataSourceHelper.show(dataSource2);
     }
 
+    @Test
+    public void testGroup_agg_sum3() {
+
+        Dataset<Row> dataSet = SparkContentManager.getInstance().getDataset(dataSource2.getName());
+        Dataset<Row> ret = dataSet.groupBy("column1").agg(functions.sum(dataSet.col("sum")).as("sum1"));
+        ret.show();
+        DataSourceHelper.show(dataSource2);
+    }
 }

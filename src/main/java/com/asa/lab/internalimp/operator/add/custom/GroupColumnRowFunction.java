@@ -10,14 +10,15 @@ import java.util.Iterator;
 /**
  * @author andrew_asa
  * @date 2018/10/18.
+ * 分组行
  */
-public class CustomColumnRowFunction implements MapPartitionsFunction<Row, Row>, Serializable {
+public class GroupColumnRowFunction implements MapPartitionsFunction<Row, Row>, Serializable {
 
     private AddCustomColumn operator;
 
     private StructType structType;
 
-    public CustomColumnRowFunction(AddCustomColumn operator, StructType structType) {
+    public GroupColumnRowFunction(AddCustomColumn operator, StructType structType) {
 
         this.operator = operator;
         this.structType = structType;

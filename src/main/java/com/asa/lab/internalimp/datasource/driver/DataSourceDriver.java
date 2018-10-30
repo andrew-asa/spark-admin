@@ -11,7 +11,20 @@ import com.asa.lab.structure.datasource.DataSource;
  */
 public interface DataSourceDriver {
 
+    /**
+     * 获取分区信息
+     *
+     * @param source
+     * @return
+     */
     BasePartition[] getPartitions(DataSource source);
 
-    BaseDSIterator compute(DataSource source,ComputeOption option);
+    /**
+     * 生成结果迭代器
+     *
+     * @param source
+     * @param option
+     * @return
+     */
+    BaseDSIterator compute(DataSource source, ComputeOption option);
 }

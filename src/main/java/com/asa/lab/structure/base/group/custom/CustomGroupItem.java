@@ -1,4 +1,4 @@
-package com.asa.lab.internalimp.operator.add.custom;
+package com.asa.lab.structure.base.group.custom;
 
 import com.asa.utils.AssistUtils;
 

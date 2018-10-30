@@ -1,88 +1,44 @@
 package com.asa.lab.internalimp.operator.add.custom;
 
 import com.asa.lab.internalimp.operator.add.AddNewColumnOperator;
+import com.asa.lab.structure.base.group.GroupColumn;
 import com.asa.utils.AssistUtils;
 
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * @author andrew_asa
  * @date 2018/10/17.
  * 新增求自定义分组
  */
-public class AddCustomColumn extends AddNewColumnOperator {
+public class AddCustomColumn extends AddNewColumnOperator implements Serializable {
 
     public static final String SUB_NAME = "addCustomColumn";
 
-    private List<CustomGroupItem> custom;
-
-    /***
-     * 其他分组名字
-     */
-    private String otherGroupName;
-
     /**
-     * 是否使用其他分组
+     * 分组信息
      */
-    private boolean userOther;
+    private GroupColumn groupInfo;
 
-    /**
-     * 定制列
-     */
-    private String customColumn;
+    public AddCustomColumn(GroupColumn groupInfo) {
 
-    public AddCustomColumn(String customColumn, List<CustomGroupItem> custom, boolean userOther, String otherGroupName) {
-
-        this.customColumn = customColumn;
-        this.custom = custom;
-        this.userOther = userOther;
-        this.otherGroupName = otherGroupName;
+        this.groupInfo = groupInfo;
     }
 
-    public List<CustomGroupItem> getCustom() {
+    public GroupColumn getGroupInfo() {
 
-        return custom;
+        return groupInfo;
     }
 
-    public void setCustom(List<CustomGroupItem> custom) {
+    public void setGroupInfo(GroupColumn groupInfo) {
 
-        this.custom = custom;
+        this.groupInfo = groupInfo;
     }
 
     @Override
     public String getSubName() {
 
         return SUB_NAME;
-    }
-
-    public String getOtherGroupName() {
-
-        return otherGroupName;
-    }
-
-    public void setOtherGroupName(String otherGroupName) {
-
-        this.otherGroupName = otherGroupName;
-    }
-
-    public boolean isUserOther() {
-
-        return userOther;
-    }
-
-    public void setUserOther(boolean userOther) {
-
-        this.userOther = userOther;
-    }
-
-    public String getCustomColumn() {
-
-        return customColumn;
-    }
-
-    public void setCustomColumn(String customColumn) {
-
-        this.customColumn = customColumn;
     }
 
     @Override
@@ -96,14 +52,18 @@ public class AddCustomColumn extends AddNewColumnOperator {
         }
 
         AddCustomColumn that = (AddCustomColumn) o;
-        return AssistUtils.equals(userOther, that.userOther) &&
-                AssistUtils.equals(custom, that.custom) &&
-                AssistUtils.equals(otherGroupName, that.otherGroupName);
+        return AssistUtils.equals(groupInfo, that.groupInfo);
     }
 
     @Override
     public int hashCode() {
 
-        return AssistUtils.hashCode(custom, otherGroupName, userOther);
+        return AssistUtils.hashCode(groupInfo);
+    }
+
+    @Override
+    public String toString() {
+
+        return AssistUtils.toString(this);
     }
 }

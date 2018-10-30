@@ -3,11 +3,13 @@ package com.asa.lab.internalimp.datasource;
 import com.asa.lab.structure.datasource.Column;
 import com.asa.lab.structure.datasource.Type;
 
+import java.io.Serializable;
+
 /**
  * @author andrew_asa
  * @date 2018/10/9.
  */
-public class BaseColumn implements Column {
+public class BaseColumn implements Column, Serializable {
 
     private Type type;
 

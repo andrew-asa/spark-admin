@@ -1,5 +1,6 @@
 package com.asa.lab.internalimp.sql.rdd;
 
+import com.asa.utils.AssistUtils;
 import org.apache.spark.Partition;
 
 /**
@@ -20,7 +21,7 @@ public class BasePartition implements Partition {
     @Override
     public int hashCode() {
 
-        return super.hashCode();
+        return AssistUtils.hashCode(index);
     }
 
     @Override
