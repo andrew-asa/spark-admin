@@ -20,9 +20,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author andrew_asa

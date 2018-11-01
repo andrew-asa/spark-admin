@@ -74,7 +74,7 @@ public class JoinColumnInfoBuilder {
     public static Dataset<Row> rebuildResultColumn(Dataset<Row> result, boolean forceOrder, List<JoinColumnItem> joinColumnItems) {
 
         if (forceOrder) {
-            result = result.orderBy(result.col(LEFT_INDEX_COLUMN), result.col(RIGHT_INDEX_COLUMN));
+            result = result.orderBy(LEFT_INDEX_COLUMN, RIGHT_INDEX_COLUMN);
         }
         JoinColumnInfoBuilder builderInfo = new JoinColumnInfoBuilder();
         List<Column> columns = builderInfo.buildColumns(result, joinColumnItems);
