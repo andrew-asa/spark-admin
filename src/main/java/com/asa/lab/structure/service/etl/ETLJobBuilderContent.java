@@ -7,4 +7,5 @@ package com.asa.lab.structure.service.etl;
  */
 public class ETLJobBuilderContent {
 
+
 }

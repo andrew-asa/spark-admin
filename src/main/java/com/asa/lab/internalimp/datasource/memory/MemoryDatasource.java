@@ -4,10 +4,12 @@ import com.asa.lab.structure.datasource.DataSchema;
 import com.asa.lab.structure.datasource.DataSource;
 import com.asa.lab.structure.datasource.DataSet;
 
+import java.io.Serializable;
+
 /**
  * Created by andrew_asa on 2018/8/3.
  */
-public class MemoryDatasource implements DataSource {
+public class MemoryDatasource implements DataSource, Serializable {
 
     public static final String URLSCHMA = "memory";
 

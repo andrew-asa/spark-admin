@@ -32,12 +32,6 @@ public class SparkDataSet implements DataSet {
     }
 
     @Override
-    public RowSet[] getDataArray() {
-
-        return new RowSet[0];
-    }
-
-    @Override
     public List<RowSet> getDataList() {
 
         return null;

@@ -1,16 +1,19 @@
 package com.asa.lab.internalimp.operator.select;
 
+import com.asa.lab.internalimp.datasource.empty.EmptyDataSource;
+import com.asa.lab.internalimp.sql.datasource.DataSourceDataSetBuilder;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.operator.ETLOperatorJobBuilder;
 import com.asa.lab.structure.service.etl.ETLJobBuilderContent;
 import com.asa.lab.structure.service.spark.SparkContentManager;
 import com.asa.utils.ListUtils;
-import org.apache.spark.sql.Column;
+import com.asa.utils.MapUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author andrew_asa
@@ -23,29 +26,35 @@ public class SelectJobBuilder implements ETLOperatorJobBuilder {
 
         SelectOperator selectOperator = (SelectOperator) operator;
         List<SelectItem> selectItems = selectOperator.getItems();
-        List<Column> scs = new ArrayList<>();
-        List<String> tableList = new ArrayList<>();
-        if (ListUtils.isNotEmpty(selectItems)) {
-            for (SelectItem item : selectItems) {
-                ListUtils.putIfAbsent(tableList, item.getTableName());
-            }
-            int tl = ListUtils.length(tableList);
-            if (tl == 0) {
-                return null;
-            }
+        Map<String, List<String>> tableFields = getTableFieldMap(selectItems);
+        if (MapUtils.isNotEmptyMap(tableFields)) {
             // 单表
-            if (tl == 1) {
-                dataSet = SparkContentManager.getInstance().getDataset(tableList.get(0));
+            if (tableFields.size() == 1) {
+                dataSet = SparkContentManager.getInstance().getDataset(selectItems.get(0).getTableName());
+            } else {
+
             }
-            if (ListUtils.isNotEmpty(selectItems)) {
-                for (SelectItem item : selectItems) {
-                    Column column = dataSet.col(item.getColumnName());
-                    scs.add(column);
-                }
-                dataSet = dataSet.select(scs.toArray(new Column[0]));
-            }
-            //dataSet = dataSet.select(scs.toArray(new Column[0]));
+        } else {
+            // 没有选字段
+            DataSourceDataSetBuilder dataSetBuilder = new DataSourceDataSetBuilder();
+            dataSet = dataSetBuilder.build(new EmptyDataSource());
         }
         return dataSet;
+    }
+
+    private Map<String, List<String>> getTableFieldMap(List<SelectItem> items) {
+
+        Map<String, List<String>> ret = new HashMap<>(16);
+        if (ListUtils.isNotEmpty(items)) {
+            items.forEach(item -> {
+                List<String> fields = ret.get(item.getTableName());
+                if (fields == null) {
+                    fields = ListUtils.ensureNotNull(fields);
+                    ret.put(item.getTableName(), fields);
+                }
+                fields.add(item.getColumnName());
+            });
+        }
+        return ret;
     }
 }

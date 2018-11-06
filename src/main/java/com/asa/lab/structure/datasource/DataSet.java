@@ -10,8 +10,6 @@ import java.util.List;
  */
 public interface DataSet extends Serializable {
 
-    RowSet[] getDataArray();
-
     List<RowSet> getDataList();
 
     int size();

@@ -23,6 +23,10 @@ public class ComputeOption {
      */
     private String[] requiredColumns;
 
+    public ComputeOption(String[] requiredColumns) {
+        this.requiredColumns = requiredColumns;
+    }
+
     public ComputeOption(Partition split, TaskContext context, String[] requiredColumns) {
 
         this.split = split;

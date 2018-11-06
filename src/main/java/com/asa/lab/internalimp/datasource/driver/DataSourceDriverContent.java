@@ -1,5 +1,7 @@
 package com.asa.lab.internalimp.datasource.driver;
 
+import com.asa.lab.internalimp.datasource.empty.EmptyDataSource;
+import com.asa.lab.internalimp.datasource.empty.EmptyDataSourceDriver;
 import com.asa.lab.internalimp.datasource.memory.MemoryDataSourceDriver;
 import com.asa.lab.internalimp.datasource.memory.MemoryDatasource;
 import com.asa.lab.internalimp.sql.relation.ColumnTypeToDataTypeVisitor;
@@ -41,6 +43,7 @@ public class DataSourceDriverContent {
     public void registerDefaultDriver() {
 
         registerDriver(MemoryDatasource.URLSCHMA, new MemoryDataSourceDriver());
+        registerDriver(EmptyDataSource.URLSCHMA, new EmptyDataSourceDriver());
     }
 
     public static DataSourceDriverContent getInstance() {

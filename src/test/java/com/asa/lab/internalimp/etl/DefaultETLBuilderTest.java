@@ -126,21 +126,17 @@ public class DefaultETLBuilderTest {
         DataBaseContent.getInstance().addDataSource(dataSource.getName(), dataSource);
 
         MemoryDatasource expect = DataSourceHelper.mockMemoryDatasource(
-                new Type[]{Type.String},
-                new String[]{"sheng"},
+                new Type[]{Type.String, Type.String},
+                new String[]{"sheng", "shi"},
                 new Object[][]{
-                        {"江苏"},
-                        {"浙江"},
-                        {"广东"},
+                        {"江苏", "南京"},
+                        {"浙江", "宁波"},
+                        {"广东", "广州"},
                 });
 
         DefaultETLBuilder builder = new DefaultETLBuilder();
         List<ETLOperator> ETLOperators = new ArrayList<ETLOperator>();
-        SelectOperator columnFilterOperator = SelectOperatorHelper.buildSelectOperator(
-                new String[]{tableName},
-                new String[]{"sheng"});
         ETLOperators.add(SelectOperatorHelper.allSelectOperator(dataSource));
-        ETLOperators.add(columnFilterOperator);
         ETLJobBuilderContent content = new ETLJobBuilderContent();
         DataSource result = builder.build(content, ETLOperators);
         DataSourceHelper.show(result);

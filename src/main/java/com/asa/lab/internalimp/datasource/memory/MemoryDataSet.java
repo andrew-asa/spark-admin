@@ -19,12 +19,6 @@ public class MemoryDataSet implements DataSet {
     }
 
     @Override
-    public RowSet[] getDataArray() {
-
-        return data;
-    }
-
-    @Override
     public List<RowSet> getDataList() {
 
         return Arrays.asList(data);
