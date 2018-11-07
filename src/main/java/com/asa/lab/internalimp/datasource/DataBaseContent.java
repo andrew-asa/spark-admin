@@ -1,6 +1,6 @@
 package com.asa.lab.internalimp.datasource;
 
-import com.asa.lab.internalimp.datasource.relation.Relation;
+import com.asa.lab.structure.datasource.relation.Relation;
 import com.asa.lab.structure.datasource.DataSource;
 import com.asa.utils.ListUtils;
 import org.apache.commons.collections.MapUtils;
@@ -74,6 +74,13 @@ public class DataBaseContent {
 
         List<String> key = ListUtils.arrayToList(primaryTable, foreignTable);
         relationMap.remove(key);
+    }
+
+
+    public Relation getRelation(String primaryTable, String foreignTable) {
+
+        List<String> key = ListUtils.arrayToList(primaryTable, foreignTable);
+        return relationMap.get(key);
     }
 
     public DataSource getDataSource(String tableName) {

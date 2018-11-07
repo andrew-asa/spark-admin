@@ -52,7 +52,6 @@ public class MemoryDatasourceBuilder {
 
         MemoryDatasource datasource = new MemoryDatasource();
 
-        MemoryDataSet set = new MemoryDataSet();
 
         int columnLen = types.length;
 
@@ -64,18 +63,20 @@ public class MemoryDatasourceBuilder {
 
         BaseDataSchema dataSchema = new BaseDataSchema(columns);
         datasource.setSchema(dataSchema);
+        MemoryRowSet[] rows;
         if (data != null) {
-            MemoryRowSet[] rows = new MemoryRowSet[data.length];
+            rows = new MemoryRowSet[data.length];
             for (int i = 0; i < data.length; i++) {
                 MemoryRowSet row = new MemoryRowSet(columns, data[i]);
                 row.setColumns(columns);
                 rows[i] = row;
             }
-            set.setData(rows);
+        } else {
+            rows = new MemoryRowSet[0];
         }
+        MemoryDataSet set = new MemoryDataSet(rows, dataSchema);
         datasource.setDataSet(set);
         datasource.setName(tableName);
-
         clear();
         return datasource;
     }

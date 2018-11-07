@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Created by andrew_asa on 2018/8/3.
  */
-public class MemoryDatasource implements DataSource, Serializable {
+public class MemoryDatasource implements DataSource {
 
     public static final String URLSCHMA = "memory";
 

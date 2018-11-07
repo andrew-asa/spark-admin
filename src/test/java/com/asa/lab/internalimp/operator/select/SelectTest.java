@@ -4,15 +4,16 @@ package com.asa.lab.internalimp.operator.select;
 import com.asa.lab.internalimp.datasource.DataBaseContent;
 import com.asa.lab.internalimp.datasource.DataSourceHelper;
 import com.asa.lab.internalimp.datasource.memory.MemoryDatasource;
-import com.asa.lab.internalimp.datasource.relation.Relation;
+import com.asa.lab.structure.datasource.DataSource;
+import com.asa.lab.structure.datasource.relation.Relation;
 import com.asa.lab.internalimp.datasource.relation.RelationBuilderHelper;
 import com.asa.lab.internalimp.etl.DefaultETLBuilder;
-import com.asa.lab.structure.datasource.DataSource;
 import com.asa.lab.structure.datasource.Type;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.service.etl.ETLJobBuilderContent;
 import com.asa.lab.structure.service.spark.SparkContentManager;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,7 +41,7 @@ public class SelectTest {
     @Test
     public void testSelectRelationTables() {
 
-        MemoryDatasource primaryTable = DataSourceHelper.mockMemoryDatasource(
+        MemoryDatasource childTable = DataSourceHelper.mockMemoryDatasource(
                 new Type[]{Type.String, Type.Double},
                 new String[]{"table1_column", "table1_width"},
                 new Object[][]{
@@ -51,7 +52,7 @@ public class SelectTest {
                 });
 
 
-        MemoryDatasource childTable = DataSourceHelper.mockMemoryDatasource(
+        MemoryDatasource primaryTable = DataSourceHelper.mockMemoryDatasource(
                 new Type[]{Type.String, Type.String, Type.Double},
                 new String[]{"table2_column1", "table2_column2", "table2_width"},
                 new Object[][]{
@@ -81,26 +82,28 @@ public class SelectTest {
         StringBuffer buffer = new StringBuffer();
         buffer.append(primaryTable.getName())
                 .append(RelationBuilderHelper.FIELD_SEPERATOR)
-                .append("table1_column")
+                .append("table2_column1")
                 .append(RelationBuilderHelper.TABLE_SEPERATOR)
                 .append(childTable.getName())
                 .append(RelationBuilderHelper.FIELD_SEPERATOR)
-                .append("table2_column1");
+                .append("table1_column");
 
         Relation relation = RelationBuilderHelper.buildSimpleRelation(buffer.toString());
         DataBaseContent.getInstance().addRelation(relation);
 
         SelectOperatorBuilder builder = new SelectOperatorBuilder();
-        SelectOperator selectOperator = builder.addItem(primaryTable.getName(), "table1_width", "table1_width")
-                .addItem(childTable.getName(), "table2_column1", "table2_column1")
-                .addItem(childTable.getName(), "table2_column2", "table2_column2")
-                .addItem(childTable.getName(), "table2_width", "table2_width")
+        SelectOperator selectOperator = builder.addItem(childTable.getName(), "table1_width", "table1_width")
+                .addItem(primaryTable.getName(), "table2_column1", "table2_column1")
+                .addItem(primaryTable.getName(), "table2_column2", "table2_column2")
+                .addItem(primaryTable.getName(), "table2_width", "table2_width")
                 .build();
 
         List<ETLOperator> etlOperators = new ArrayList<ETLOperator>();
         DefaultETLBuilder etlBuilder = new DefaultETLBuilder();
         etlOperators.add(selectOperator);
         ETLJobBuilderContent content2 = new ETLJobBuilderContent();
-        //DataSource result = etlBuilder.build(content2, etlOperators);
+        DataSource result = etlBuilder.build(content2, etlOperators);
+        DataSourceHelper.show(result);
+        Assert.assertTrue(DataSourceHelper.assertDataSource(result, expect));
     }
 }

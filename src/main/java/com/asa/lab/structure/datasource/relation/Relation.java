@@ -1,4 +1,4 @@
-package com.asa.lab.internalimp.datasource.relation;
+package com.asa.lab.structure.datasource.relation;
 
 import java.util.List;
 

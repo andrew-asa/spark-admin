@@ -44,4 +44,14 @@ public class BaseColumn implements Column, Serializable {
 
         this.name = name;
     }
+
+    public String getTableName() {
+
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+
+        this.tableName = tableName;
+    }
 }

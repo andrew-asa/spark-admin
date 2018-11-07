@@ -1,22 +1,15 @@
-package com.asa.lab.internalimp.datasource.empty;
+package com.asa.lab.internalimp.datasource.driver;
 
-import com.asa.lab.internalimp.datasource.driver.DataSourceDriver;
 import com.asa.lab.internalimp.sql.rdd.BaseDSIterator;
 import com.asa.lab.internalimp.sql.rdd.BasePartition;
 import com.asa.lab.internalimp.sql.rdd.ComputeOption;
-import com.asa.lab.structure.datasource.DataSet;
 import com.asa.lab.structure.datasource.DataSource;
-import com.asa.lab.structure.datasource.RowSet;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author andrew_asa
- * @date 2018/10/12.
+ * @date 2018/11/7.
  */
-public class EmptyDataSourceDriver implements DataSourceDriver {
+public class BaseDataSourceDriver implements DataSourceDriver {
 
     @Override
     public BasePartition[] getPartitions(DataSource source) {

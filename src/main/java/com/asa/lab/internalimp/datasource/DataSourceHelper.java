@@ -87,9 +87,9 @@ public class DataSourceHelper {
                 return false;
             }
             DataSet dss1 = ds1.getDataSet();
-            int rs = dss1.size();
+            int rs = dss1.getRowSize();
             DataSet dss2 = ds2.getDataSet();
-            if (rs != dss2.size()) {
+            if (rs != dss2.getRowSize()) {
                 return false;
             }
             for (int i = 0; i < rs; i++) {
@@ -152,7 +152,7 @@ public class DataSourceHelper {
                 String spStr = sp.toString();
                 ret.append(spStr).append(head.toString());
                 DataSet set = source.getDataSet();
-                int ps = Math.min(size, set.size());
+                int ps = Math.min(size, set.getRowSize());
                 StringBuffer row = null;
                 for (int i = 0; i < ps; i++) {
                     row = new StringBuffer();

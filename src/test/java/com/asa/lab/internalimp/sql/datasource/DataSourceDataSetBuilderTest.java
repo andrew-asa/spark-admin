@@ -76,8 +76,7 @@ public class DataSourceDataSetBuilderTest {
         dataSet.show();
         SparkDataSource dataSource = new SparkDataSource(dataSet);
         DataSet set = dataSource.getDataSet();
-        List<RowSet> rowSets = set.getDataList();
-        Assert.assertEquals(ListUtils.length(rowSets), 0);
+        Assert.assertEquals(set.getRowSize(), 0);
         DataSchema schema = dataSource.getSchema();
         Column[] columns = schema.getColumns();
         Assert.assertEquals(ArrayUtils.length(columns), 0);

@@ -6,4 +6,8 @@ package com.asa.lab.expection;
  */
 public class BaseRunTimeException extends RuntimeException {
 
+    public BaseRunTimeException(String message) {
+
+        super(message);
+    }
 }

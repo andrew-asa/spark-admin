@@ -1,7 +1,9 @@
 package com.asa.lab.internalimp.operator.select;
 
 import com.asa.lab.internalimp.datasource.empty.EmptyDataSource;
+import com.asa.lab.internalimp.datasource.relation.RelationDataSourceBuilder;
 import com.asa.lab.internalimp.sql.datasource.DataSourceDataSetBuilder;
+import com.asa.lab.structure.datasource.DataSource;
 import com.asa.lab.structure.operator.ETLOperator;
 import com.asa.lab.structure.operator.ETLOperatorJobBuilder;
 import com.asa.lab.structure.service.etl.ETLJobBuilderContent;
@@ -32,7 +34,10 @@ public class SelectJobBuilder implements ETLOperatorJobBuilder {
             if (tableFields.size() == 1) {
                 dataSet = SparkContentManager.getInstance().getDataset(selectItems.get(0).getTableName());
             } else {
-
+                RelationDataSourceBuilder relationDataSourceBuilder = new RelationDataSourceBuilder();
+                DataSource relationTablesDataSource = relationDataSourceBuilder.build(selectOperator);
+                DataSourceDataSetBuilder dataSetBuilder = new DataSourceDataSetBuilder();
+                dataSet = dataSetBuilder.build(relationTablesDataSource);
             }
         } else {
             // 没有选字段
