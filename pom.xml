@@ -21,7 +21,7 @@
             <!--<url>https://raw.githubusercontent.com/andrew-asa/maven-repository/master/repository</url>-->
         <!--</repository>-->
         <repository>
-            <id>hengyunabc-maven-repo</id>
+            <id>andrew.asa-maven-repository</id>
             <url>file:/Users/andrew_asa/Documents/code/github/andrew-asa/maven-repository/</url>
         </repository>
     </repositories>
@@ -98,6 +98,8 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <!--不生成target/generated-sources/annotations-->
+                    <proc>none</proc>
                 </configuration>
             </plugin>
         </plugins>
